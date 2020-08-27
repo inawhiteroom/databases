@@ -1,0 +1,209 @@
+drop database if exists snet2008;
+create database snet2008;
+use snet2008;
+
+drop table if exists users;
+create table users(
+	id serial primary key, -- SERIAL = BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
+	email varchar(150) unique,
+	pass varchar(100),
+	name varchar(50),
+	surname varchar(50),
+	phone varchar(20),
+	gender char(1),
+	birthday date,
+	hometown varchar(100),
+	photo_id bigint unsigned,
+	created_at datetime default now(),
+	key(phone),
+	key(name, surname)	
+);
+drop table if exists settings;
+create table settings(
+	user_id serial primary key,
+	can_see ENUM('all', 'friends_of_friends', 'friends'),
+	can_comment ENUM('all', 'friends_of_friends', 'friends', 'nobody'),
+	can_message ENUM('all', 'friends_of_friends', 'friends'),
+	foreign key (user_id) references users(id)
+);
+drop table if exists messages;
+create table messages(
+	id serial primary key,
+	from_user_id bigint unsigned not null,
+	to_user_id bigint unsigned not null,
+	body text,
+	is_read bool default 0,
+	created_at datetime default current_timestamp,
+	foreign key (from_user_id) references users(id),
+	foreign key (to_user_id) references users(id)
+);
+drop table if exists friend_requests;
+create table friend_requests(
+	initiator_user_id bigint unsigned not null,
+	target_user_id  bigint unsigned not null,
+	status ENUM('requested', 'approved', 'unfriended', 'declined') default 'requested',
+	requested_at datetime default now(),
+	confirmed_at datetime, -- TODO âûñòàâëÿòü âðåìÿ íà UPDATE
+	primary key (initiator_user_id, target_user_id),
+	foreign key (initiator_user_id) references users(id),
+	foreign key (target_user_id) references users(id),
+	index(initiator_user_id),
+	index(target_user_id)
+);
+drop table if exists communities;
+create table communities(
+	id serial,
+	name varchar(255),
+	primary key (id),
+	index(name)
+);
+drop table if exists users_communities;
+create table users_communities(
+	user_id bigint unsigned not null,
+	community_id bigint unsigned not null,
+	is_admin bool default 0,
+	primary key (user_id, community_id),
+	foreign key (user_id) references users(id),
+	foreign key (community_id) references communities(id)
+);
+drop table if exists posts;
+create table posts(
+	id serial primary key,
+	user_id bigint unsigned not null,
+	body text,
+	created_at datetime default current_timestamp,
+	updated_at datetime,
+	foreign key (user_id) references users(id),
+	index(user_id)
+);
+drop table if exists comments;
+create table comments(
+	id serial primary key,
+	user_id bigint unsigned not null,
+	post_id bigint unsigned not null,
+	body text, 
+	created_at datetime default current_timestamp,
+	foreign key (user_id) references users(id),
+	foreign key (post_id) references posts(id)
+);
+drop table if exists photos;
+create table photos(
+	id serial primary key,
+	user_id bigint unsigned not null,
+	description varchar(255),
+	created_at datetime default current_timestamp,
+	foreign key (user_id) references users(id),
+	index(user_id)
+);
+drop table if exists likes;
+create table likes(
+	id serial primary key,
+	user_id bigint unsigned not null,
+	post_id bigint unsigned not null,
+    photo_id bigint unsigned not null,
+	foreign key (user_id) references users(id),
+	foreign key (post_id) references posts(id),
+    foreign key (photo_id) references photos(id)
+);
+INSERT INTO `users` VALUES ('1','pamela.smith@hoppe.org','c40961d2-c5f7-3252-a2a6-4aab959e58c2','Earnest Pfannerstill','Shanahan','655.348.9594','P','2019-12-03','Kayleighton','0','2010-02-02 00:00:00'),
+('2','qwhite@rolfsonmueller.com','7bfe8607-66a1-322f-a8fc-a319e8c368cc','Dr. Doyle Weissnat','Weber','865-637-0883','M','1981-02-07','Waelchifurt','0','1992-02-25 00:00:00'),
+('3','elna84@gmail.com','3825514f-3e88-368b-a099-1b155ec693a6','Effie Beier','Senger','752-235-1013x61305','D','1996-08-21','North Elizachester','0','1970-09-01 00:00:00'),
+('4','baylee80@vonrueden.com','7e47e9c2-2276-3f27-a673-4b4ec18f2a9a','Prof. Dorris Hilpert DVM','Jast','1-699-755-6446','P','2009-05-15','Quintenmouth','0','2012-09-30 00:00:00'),
+('5','gkoelpin@gorczany.com','a5078d60-350f-3761-91b3-590407926a89','Marina Okuneva','Haag','1-598-865-1471','M','1987-08-14','Port Candelario','0','1975-11-07 00:00:00'),
+('6','teagan.becker@gmail.com','53e8c1b6-a571-3a5c-8d79-74adabac4433','Jailyn Goyette','Farrell','(026)065-2821x6776','M','1976-11-07','Joshuachester','0','1997-05-14 00:00:00'),
+('7','candice.mills@gmail.com','6adc128d-7fe6-35ae-81e6-332bd3bec4ef','Jermey Cummerata','Herzog','1-160-927-9242x018','P','1983-08-02','Stevieport','0','1970-04-14 00:00:00'),
+('8','ndooley@gmail.com','4794fcd8-0fef-33e6-b5fa-26e063389dbf','Dr. Jennings Hansen III','Schamberger','652-156-4012','M','1974-09-18','Jakaylafort','0','1994-12-28 00:00:00'),
+('9','steuber.simone@hayes.com','aa0b540d-9014-3d8b-80ab-dcfa96b0e42d','Ms. Ethyl Funk V','Conn','1-888-653-2493x1640','M','1977-11-12','East Elnora','0','2018-06-30 00:00:00'),
+('10','schaefer.brandi@cronin.com','80c59334-2c71-39b4-a4f7-59b8f63d8e63','Prof. Mckayla Trantow Sr.','Zboncak','1-841-143-5322x562','M','1976-02-27','West Kenyon','0','1975-07-28 00:00:00'),
+('11','mikayla20@hotmail.com','093d0593-7f84-35f7-8a72-a7a4b918c419','Nina Glover','Bechtelar','+15(2)8959522733','M','1971-10-31','Port Lance','0','2004-02-08 00:00:00'),
+('12','mable.klocko@gmail.com','16a2ef07-25e2-374e-af1b-dd1a3f8829a3','Prof. Sven Gerlach II','Stroman','+52(4)8996012985','P','2013-05-17','Aryannafort','0','1979-11-11 00:00:00'),
+('13','madyson.schmeler@gmail.com','bbb61c6c-3471-39a6-91bf-e9883303aae0','Carmelo Veum DDS','Wehner','1-591-118-7842','D','1997-12-04','Lake Myrtieborough','0','2019-03-14 00:00:00'),
+('14','xhettinger@yahoo.com','db168b69-a24b-38bc-b80d-3b0278e5abc5','Vance Stanton','Hoeger','(352)571-4282x069','M','2002-04-20','Jannieland','0','1976-06-12 00:00:00'),
+('15','norma28@hotmail.com','bf68fb14-03e0-3324-bc2b-3d3caba6b001','Damaris Wiegand','Hyatt','922-981-7676x938','M','1974-06-27','Thompsonchester','0','2014-08-15 00:00:00'),
+('16','ukling@yahoo.com','96c73fba-2c13-351d-8710-71ae7c96f707','Alessandra Littel','Fisher','(470)345-4148x19689','P','2009-11-17','Jenkinstown','0','1971-05-28 00:00:00'),
+('17','ewald.cruickshank@hotmail.com','9d5640bc-3d80-3fe2-a9ca-b182c19f0576','Ms. Ila Kiehn DDS','Kovacek','153.984.9978x844','M','1980-06-29','Wunschhaven','0','1973-02-02 00:00:00'),
+('18','murazik.clarissa@yahoo.com','38a463dd-12a4-3ddc-ac80-730d456e1df2','Camille Kutch','Altenwerth','714.838.3335','P','1982-06-24','Stantonmouth','0','2019-08-15 00:00:00'),
+('19','fschoen@runolfsdottir.com','dadd56fb-4a6d-31dd-99bc-ee7d08bc4ac1','Marcel Cartwright','Legros','1-804-183-1717','M','2020-02-26','Koeppview','0','1979-06-27 00:00:00'),
+('20','emile34@yahoo.com','646b6692-b2a3-317d-b8e9-db3ea7094ca1','Beau Nolan','Lemke','(727)277-5863','M','1988-03-09','Blandaview','0','2006-01-17 00:00:00'),
+('21','zcasper@hotmail.com','fbbb37e5-f27b-3a18-ab9f-358efdbfd469','Bennie Lakin','Streich','1-654-066-2120x489','M','1985-04-21','South Macey','0','1970-11-15 00:00:00'),
+('22','windler.meagan@bergnaumshields.biz','267bf656-eba2-39a7-a86f-5790fcd902b5','Autumn Johns II','Funk','785.147.8691x3014','M','1999-03-18','West Lavonnebury','0','2014-04-09 00:00:00'),
+('23','fernando.carter@walter.biz','65026034-5203-33aa-b976-31d31000c143','Cullen Moore','Conn','1-748-687-1592','M','2001-03-19','Heidenreichhaven','0','2012-03-05 00:00:00'),
+('24','maggio.uriah@reichelschowalter.com','1c0d7866-5d7a-3dcc-ab14-976b552bae73','Liam Weissnat','Boehm','838-333-6308','M','1987-07-05','Port Mylene','0','1971-07-29 00:00:00'),
+('25','jaskolski.cloyd@hermiston.com','85c62466-547a-32fd-9bd9-f3f35db9f86a','Victoria Trantow','Kuphal','971-443-8764x108','M','2007-04-01','Jacobsonburgh','0','2007-12-09 00:00:00'),
+('26','quigley.moises@yahoo.com','c5222072-8819-345d-8b83-57a22b7c7def','Lorna Williamson','Roberts','525-473-8111x98415','P','2011-10-21','West Helene','0','1982-08-24 00:00:00'),
+('27','malinda.huels@reinger.com','7f9cb1f2-ed73-32c9-8954-9ea46a758838','Harry Pfeffer','Treutel','07810422179','M','2020-02-16','Feilville','0','1987-08-02 00:00:00'),
+('28','treutel.alexandria@gmail.com','c28ffe2a-b739-3e89-8d42-3188ae4d4ede','Dr. Neal Funk Sr.','Rippin','(105)841-8683x033','M','1990-05-23','Ritchieberg','0','2003-05-13 00:00:00'),
+('29','parker.tremblay@swaniawski.com','4648b0e3-195a-3b31-93c6-7bb692335164','Hiram Murphy','Padberg','1-447-251-1451','P','2020-08-26','Judahborough','0','2008-07-14 00:00:00'),
+('30','ebauch@cassin.com','a0550add-d2f6-336f-9a11-7092e94b3a7d','Danial Gusikowski','Larson','1-138-516-7502x495','M','2004-09-24','North Gwendolyn','0','2001-07-27 00:00:00'),
+('31','misty49@schowalterschimmel.com','64f8205d-195a-3757-9c60-e78f6df6a151','Juanita Kerluke','Koch','840-917-7994','M','1976-11-22','Brendenhaven','0','1978-05-22 00:00:00'),
+('32','margarete82@klein.biz','f1511c93-01da-30f1-9156-0e4099f35e34','Garfield Schoen','Altenwerth','(308)349-0418x9037','D','2004-04-15','Lynchmouth','0','1973-09-21 00:00:00'),
+('33','florian39@simonis.com','0aeecac2-59a5-3fd3-96dc-b47b7ca0d793','Delilah Keeling V','Gutmann','478-679-7913x1299','P','2009-07-23','Caitlynview','0','1983-11-03 00:00:00'),
+('34','preston40@gmail.com','6e6eb790-8b22-30b6-8899-5f57bd0db0dd','Dr. Alexys Heathcote II','Gerlach','258-567-9504x290','M','1984-03-17','Lyricton','0','2014-08-17 00:00:00'),
+('35','jess.mclaughlin@hotmail.com','6fc25e12-f9ae-3290-9abf-556649366c52','Prof. Matilde Kassulke','Fahey','+51(4)3146355507','M','2013-10-30','Rosalynside','0','1970-01-04 00:00:00'),
+('36','weber.christelle@hartmann.com','caf1a62f-de0c-325a-98b7-47c729df452c','Isai Will','Bechtelar','782-242-9748','P','1977-12-25','Port Jayda','0','1991-06-06 00:00:00'),
+('37','cesar.heaney@gmail.com','69661b07-6a71-3373-9a0e-61042e0924e6','Kurt Brekke','Muller','732-578-1347x252','M','1970-02-08','New Morris','0','2009-01-22 00:00:00'),
+('38','ondricka.bradly@schamberger.com','d63e2066-4afd-3d8e-8ac1-024c78798405','Deron Schulist','Vandervort','1-109-781-3012x216','D','1985-07-02','Cristside','0','2020-06-23 00:00:00'),
+('39','candido.bosco@gmail.com','ee15a759-1528-3bb5-bc6d-2a5b4337ecbf','Thad Hackett','Lang','571-161-7682','M','2016-11-22','Veumstad','0','1995-01-09 00:00:00'),
+('40','stroman.jaycee@farrell.com','1833e1fb-1058-3c47-9847-61b02716c372','Alverta Hackett','Hermann','756-951-8718x3274','D','1988-09-20','Donnellyton','0','1982-02-01 00:00:00'),
+('41','lwintheiser@gmail.com','f3e2c9c4-82fc-3125-bbf4-6840bdbecc9e','Mr. Rodrick Ledner','Kshlerin','524-404-9716x15134','M','1983-06-09','Kelvinmouth','0','1974-04-13 00:00:00'),
+('42','dasia26@altenwerthledner.com','5a6acf98-89f2-35fc-b75c-c3a1e9b78e97','Rowland Moore','O\'Keefe','1-836-861-9536x78500','D','1995-06-05','Bettietown','0','1994-10-05 00:00:00'),
+('43','vbashirian@emmerich.com','9d3cfb2c-dc3c-3c45-ad16-038c22154d3c','Lawson Lehner','Turner','1-399-438-3822x5378','M','2000-07-09','Cordiastad','0','2006-11-23 00:00:00'),
+('44','nichole.veum@hotmail.com','e1fb9e9e-6aed-3217-ac7e-2e6d5b804f67','Laila Wilkinson','Turcotte','1-277-327-1148x5170','M','2008-01-31','Bechtelarfort','0','2019-08-02 00:00:00'),
+('45','uhackett@powlowskifeeney.com','24be46d1-8bc0-340d-a272-550bd06d4ae7','Eloisa Treutel','Schultz','(434)398-9708x932','M','2007-03-16','North Rusty','0','1972-11-23 00:00:00'),
+('46','elyssa.bradtke@gmail.com','831eb7dd-0e3b-33c2-acf1-93dbe475876a','Christian Pfeffer','Gerhold','364.808.1679x1522','P','1971-02-21','New Aisha','0','1990-04-26 00:00:00'),
+('47','mccullough.thalia@zemlak.com','039073f5-b732-3100-8e7e-45cea4016c1e','Elsie Collins I','Reilly','+78(4)1442210184','P','1979-12-07','New Sterling','0','1999-03-02 00:00:00'),
+('48','rhett.barrows@gmail.com','e7bad2db-5e7e-306a-b291-d07b4fad3047','Gabriel Thompson MD','Mitchell','+05(2)9277367306','M','2006-06-24','Haaghaven','0','2010-03-22 00:00:00'),
+('49','nestor29@hotmail.com','d329dc18-9da3-326d-ad95-3732cf92cbcf','Lilliana Schuster','Hane','(364)907-1077','M','2007-09-04','Herzogfurt','0','2003-06-12 00:00:00'),
+('50','taurean.stehr@gmail.com','c702ca45-49f5-36b5-a278-d25a1881c241','Ivory Grant','Barrows','1-344-343-0210x1903','P','1998-12-25','North Freida','0','1987-04-10 00:00:00'),
+('51','wking@yahoo.com','5c6c00d7-3433-3bd4-874e-f1fb69629064','D\'angelo Shields','Casper','166-613-0590x41487','D','1988-04-23','East Octaviafort','0','2004-07-25 00:00:00'),
+('52','kattie51@hotmail.com','d0d2bc15-16d7-3fea-9741-edcf4766516b','Eugene Dooley','Williamson','08504329852','M','1979-03-04','Trompmouth','0','2010-10-04 00:00:00'),
+('53','vschmeler@gmail.com','b252fbf5-e192-3cd9-8b31-b5f625d4402a','Ellen Adams','Goyette','(883)883-2039','P','2004-12-03','Hubertfurt','0','1987-03-27 00:00:00'),
+('54','pouros.cleveland@hotmail.com','b37961fe-cd4b-3a7e-aae7-0065aaac366c','Cody Lesch','Skiles','1-516-283-8652x391','D','2019-09-21','Ullrichbury','0','1997-07-13 00:00:00'),
+('55','xander.farrell@halvorson.net','76e510a0-08d3-3c0b-98de-cb5fc46c167f','Ms. Tiana Steuber','Buckridge','(304)083-4772x5966','M','1993-06-06','Joaquinfurt','0','1982-04-28 00:00:00'),
+('56','xcummings@metz.com','e9463a11-8c81-3d42-9460-0d8e75a79907','Dandre Frami Jr.','Feeney','+59(6)8385268073','D','1983-01-05','Port Jakeborough','0','2009-07-08 00:00:00'),
+('57','tjaskolski@yahoo.com','a9267fb5-793c-3618-a34d-dc39ab21ed69','Dewayne Rohan','Zulauf','468-348-2400','D','1998-04-20','Hansenstad','0','1981-04-11 00:00:00'),
+('58','fadel.scot@mckenzieward.com','521f4720-9449-3e8d-9ef0-a8313aadb355','Brendon Kris IV','Heidenreich','1-993-660-5528x4126','D','1975-04-13','Ottilieburgh','0','1978-07-22 00:00:00'),
+('59','lillian.sporer@vandervort.com','beb554fe-ce3b-392e-b2f2-c82e0b5dd5ea','Vincenza Krajcik DDS','Botsford','(421)637-8248','M','1977-10-20','DuBuquefort','0','2011-09-23 00:00:00'),
+('60','shad.parker@schowalterstrosin.org','20f7f979-60a7-3b79-a979-0e944fecd3fb','Kamron Hayes','Bednar','906.724.9778','M','1986-02-03','Lake Erik','0','1971-04-29 00:00:00'),
+('61','pkris@yahoo.com','e185f850-f23d-30ce-8bd1-a15aeebb7f96','Prof. Miles Hermann DVM','Durgan','990.728.2701x139','M','2009-12-14','Raynorbury','0','1973-12-19 00:00:00'),
+('62','manley89@oconnell.com','5eb686ed-925b-319b-adc6-07b9ea153df6','Maiya Howe','Sauer','1-278-412-6195x873','P','1985-02-09','North Marvin','0','2018-02-16 00:00:00'),
+('63','moen.virginie@yahoo.com','05e30af4-6b92-3d23-b9ee-0bf014e5853c','Mrs. Hanna Keeling Jr.','Wisoky','(783)108-4321','M','2006-08-04','Amberville','0','1977-07-02 00:00:00'),
+('64','allison00@hotmail.com','ea049522-6c07-3eb7-98d4-ead4ed6484cd','Ignacio Gorczany DDS','Stokes','185-146-2303x755','M','1979-06-30','Hettingerfurt','0','1989-01-07 00:00:00'),
+('65','frederick43@yahoo.com','a3f8c605-03b0-395b-9650-cf88295f2f77','Albin Treutel','Feil','1-506-989-6423x91676','M','2008-10-23','North Babyside','0','2010-02-08 00:00:00'),
+('66','beau14@sawayn.info','d8fd5605-e085-39ef-88d1-25b9fd8e023b','Emmalee Hyatt','Stroman','244.152.7324','M','2003-03-09','New Theoburgh','0','1994-04-04 00:00:00'),
+('67','ekoss@hotmail.com','a899dd99-0f60-3bd6-ad4a-ec4e72737db8','Dr. Earl Kautzer Sr.','Gulgowski','033.816.4635','M','1979-11-16','Yadirahaven','0','1980-08-18 00:00:00'),
+('68','kali.ritchie@ryanbeer.com','2afd4b44-19e7-300d-9444-86e53bc37c20','Dr. Theo Crooks II','Gibson','361-666-9922x55688','M','1997-08-01','South Chasitytown','0','2000-07-01 00:00:00'),
+('69','mireya66@hotmail.com','d73a0da1-e52f-3224-bb6c-d8c7c988f096','Margaretta Kuhic','Cummerata','+31(8)5458919776','M','1980-05-03','Monahanmouth','0','2017-05-27 00:00:00'),
+('70','nmccullough@hotmail.com','92541067-5b4a-3ddb-9615-b194d83f9932','Gertrude Hoeger III','Lang','946.900.4496','P','1992-05-02','Gretaburgh','0','1972-04-29 00:00:00'),
+('71','joe02@gmail.com','51c65ca3-f762-37c0-85d4-1d91659f16b9','Anika McKenzie','Champlin','056-296-6686','M','2013-05-15','East Loraton','0','2006-02-11 00:00:00'),
+('72','abshire.stella@gmail.com','939d8909-d8e3-3e90-81a0-f741ebe3d691','Prof. Lacey Bogan','Keebler','659-561-3148','D','2003-09-02','Zackarymouth','0','1985-11-25 00:00:00'),
+('73','delpha06@yahoo.com','fd8cd589-c223-3a0b-8924-53448d4b892f','Prof. Jarret Boyle','Welch','(827)334-2753x910','M','2018-06-16','West Maddisonfort','0','2012-02-13 00:00:00'),
+('74','yschuster@gmail.com','1467e4d5-c74a-31ac-9cfd-ecc388e79376','Bulah Osinski','Thiel','(805)735-3260','M','2006-08-21','Benedictstad','0','2002-04-20 00:00:00'),
+('75','kskiles@schinnersimonis.com','e71a8204-6760-340d-aa8d-aa274b5f67e7','Abdul McKenzie','Ryan','(747)177-3773x8575','D','2014-11-20','Dellaport','0','1976-05-04 00:00:00'),
+('76','schroeder.jarod@gmail.com','80f050ff-02f2-3a8f-ac71-83fa62c2eceb','Prof. Turner Mann','Frami','126-226-6636x687','M','1988-09-25','New Brigitteburgh','0','1979-11-16 00:00:00'),
+('77','brandi94@gottlieb.org','78aae80c-a176-344e-9568-3eccad125d7b','Eugenia Yost','Jast','(893)833-4410x243','P','1974-09-12','Velvamouth','0','1993-09-23 00:00:00'),
+('78','braden34@gmail.com','e004f363-59f4-33e8-b656-0f7e5508e046','Antonia Spinka','Braun','459-868-0332','D','1976-02-12','O\'Reillyburgh','0','1994-12-04 00:00:00'),
+('79','germaine09@batz.org','4699cf96-6310-362a-89b2-2a54482b7201','Mellie Hudson','Gulgowski','1-853-736-3439x6700','P','1992-10-11','Priceberg','0','1990-08-19 00:00:00'),
+('80','qprice@hotmail.com','2f9cfae4-af26-3e90-861d-5c0e6e8b3692','Cleora Gottlieb','Hilll','451.001.6525x1213','M','2001-05-27','North Laurenmouth','0','1993-07-12 00:00:00'),
+('81','humberto23@hotmail.com','2e4d9aa0-aa75-3759-ae6f-7bdd574a19af','Nannie Stoltenberg','Metz','427.077.5903','M','1986-07-03','North Mittiemouth','0','1995-09-03 00:00:00'),
+('82','gislason.shemar@ward.com','f334fd3e-2047-3b3b-90aa-298e39e82d7e','Rico Leffler','Nienow','478-624-4969','D','1970-02-15','East Denis','0','1983-01-27 00:00:00'),
+('83','semmerich@hotmail.com','6e0fdca8-2f11-32fd-b3ea-0a3743dff051','Mitchell Hudson PhD','Stehr','+28(0)8152505500','M','2001-05-07','Trentonville','0','1970-05-05 00:00:00'),
+('84','isporer@howesatterfield.biz','876a38b5-9f80-3762-8197-f09253265e1d','Dr. Assunta Ferry III','Moen','304.538.9479x17477','P','2019-01-02','Emardbury','0','1976-11-10 00:00:00'),
+('85','iwintheiser@johnston.com','13785066-885f-3ce2-a79b-a8ea07fcfb87','Zetta Jacobi','Hamill','(786)622-1033x5240','M','2017-10-19','East Charlenehaven','0','1971-09-07 00:00:00'),
+('86','kade.gaylord@gmail.com','0be245bd-d620-3f42-98e6-854b004375fa','Alexandria Leffler','Ernser','992.280.3769','D','1978-02-06','Marvinville','0','2003-12-12 00:00:00'),
+('87','pacocha.telly@aufderhar.net','30f7c57c-897e-32d4-8d3a-1a3d96fc7599','Kayla Mitchell','Collier','024.528.4293x092','P','1981-12-24','East Ahmad','0','1971-09-17 00:00:00'),
+('88','jeffrey46@metz.com','45ab1144-70ef-313d-809d-9d60f23b9970','Katheryn Sporer','Carter','(580)417-0787x7819','P','1975-05-18','North Kaleb','0','1984-03-07 00:00:00'),
+('89','dorothy.gibson@yahoo.com','7c600373-68e5-35b3-9ba2-d03cb85febd4','Prof. Tristin Barrows I','Feest','443.576.1701','M','1992-05-06','Bayerstad','0','1995-04-05 00:00:00'),
+('90','ruecker.keeley@yahoo.com','d3b54afd-459b-34c8-896f-f9b71b647ab2','Kayli Rau','Gulgowski','095.734.2416x55856','M','2003-04-14','Ressieport','0','1984-06-21 00:00:00'),
+('91','reilly.dino@yahoo.com','dd172700-448f-331f-a3aa-37b255bbe4ea','Isadore Koepp','Luettgen','(801)797-4638x436','M','1976-04-18','New Maryamfort','0','2019-01-04 00:00:00'),
+('92','francesca23@hotmail.com','fbd9d893-2355-32ce-a74b-6e86311c46fb','Ms. Macie Gaylord','Gleason','900.234.6892','P','2013-08-20','New Gracieborough','0','2012-06-13 00:00:00'),
+('93','wilhelm20@hotmail.com','150a5474-79ad-3e28-b1e3-18b1467a7829','Quentin Prohaska','Jenkins','+83(4)7209962137','D','2001-10-31','Port Armand','0','2013-03-28 00:00:00'),
+('94','anika79@mann.com','9f6ccd7e-70ec-3ec3-b168-4b0ca4069317','Anita Watsica','Mayert','1-370-872-1428x04540','M','1978-08-06','Ubaldoshire','0','1976-06-22 00:00:00'),
+('95','nona.marquardt@hotmail.com','8e2129af-0252-3113-994e-a203c632726e','Annabell Hackett','Durgan','(042)018-4596x9149','M','1976-07-08','Port Lethamouth','0','1993-02-24 00:00:00'),
+('96','hobart56@yahoo.com','ad1e0447-1387-308b-8565-dfaa94081a91','Evelyn Senger','Becker','(340)471-0819','M','2009-09-26','Port Ceasar','0','2006-08-12 00:00:00'),
+('97','xkonopelski@bradtkefadel.com','48e5915d-bbb2-34ac-929a-f35ee8bb8d21','Ursula Rogahn','Bode','(530)665-0677','M','2018-03-17','South Colt','0','1997-07-28 00:00:00'),
+('98','braun.mireille@hotmail.com','e227f588-efa7-3f09-995a-460f0d247c29','Dr. Antonietta Williamson II','Goyette','09907202339','D','2019-04-14','Irmafort','0','1979-02-04 00:00:00'),
+('99','windler.enola@yahoo.com','71dca015-61d6-3d2f-b2d5-3a6caca7d30e','Prof. Macey Metz II','Olson','895-124-8058x418','P','1990-08-15','Carmellaberg','0','1993-05-31 00:00:00'),
+('100','elmira44@littel.org','40044a50-4872-3c5f-aeb1-5b081696608a','Theresa Strosin','Mante','1-894-098-4261x8782','D','2009-10-27','Borerville','0','2013-04-05 00:00:00'); 
+
+
