@@ -1,0 +1,51 @@
+-- «Операторы, фильтрация, сортировка и ограничение»
+-- 1. Пусть в таблице users поля created_at и updated_at оказались незаполненными. Заполните их текущими датой и временем.
+
+SELECT * FROM shop2020.users;
+insert into users values ('1', 'Геннадий', '1990-10-05', now(), now());
+insert into users values ('2', 'Наталья', '1984-11-12', now(), now());
+insert into users values ('3', 'Александр', '1985-05-20', now(), now());
+insert into users values ('4', 'Сергей', '1988-02-14', now(), now());
+insert into users values ('5', 'Иван', '1998-01-12', now(), now());
+insert into users values ('6', 'Мария', '1992-08-29', now(), now());
+
+-- 2. Таблица users была неудачно спроектирована. Записи created_at и updated_at были заданы типом VARCHAR и в них долгое время помещались значения в формате 20.10.2017 8:10. Необходимо преобразовать поля к типу DATETIME, сохранив введённые ранее значения.
+
+-- Получилось только с созданием новых id
+
+SELECT * FROM shop2020.users;
+ALTER TABLE users ADD created_at_dt DATETIME;
+ALTER TABLE users ADD updated_at_dt DATETIME;
+insert into users values (null, 'Геннадий', '1990-10-05', '2020-09-03 19:45:45', '2020-09-03 19:45:45','2020-09-03 19:45:45', '2020-09-03 19:45:45');
+insert into users values (null, 'Наталья', '1984-11-12', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45');
+insert into users values (null, 'Александр', '1985-05-20', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45');
+insert into users values (null, 'Сергей', '1988-02-14', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45');
+insert into users values (null, 'Иван', '1998-01-12', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45');
+insert into users values (null, 'Мария', '1992-08-29', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45', '2020-09-03 19:45:45');
+delete from users where id < 13; 
+ALTER TABLE users DROP created_at;
+ALTER TABLE users DROP updated_at;
+ALTER TABLE users RENAME COLUMN created_at_dt TO created_at;
+ALTER TABLE users RENAME COLUMN updated_at_dt TO updated_at;
+
+-- 3. В таблице складских запасов storehouses_products в поле value могут встречаться самые разные цифры: 0, если товар закончился и выше нуля, если на складе имеются запасы. Необходимо отсортировать записи таким образом, чтобы они выводились в порядке увеличения значения value. Однако нулевые запасы должны выводиться в конце, после всех записей.
+
+insert into storehouses_products values (1, 1, 1, 0, now(), now());
+insert into storehouses_products values (2, 2, 2, 2500, now(), now());
+insert into storehouses_products values (3, 3, 3, 0, now(), now());
+insert into storehouses_products values (4, 4, 4, 30, now(), now());
+insert into storehouses_products values (5, 5, 5, 500, now(), now());
+insert into storehouses_products values (6, 6, 6, 1, now(), now());
+select * from storehouses_products order by case when `value` = 0 then 2900 else `value` end;
+
+-- «Агрегация данных»
+
+-- 1. Подсчитайте средний возраст пользователей в таблице users.
+
+SELECT * FROM shop2020.users;
+select name, round(avg(timestampdiff(year, birthday_at, now()))) from users;
+
+-- 2. Подсчитайте количество дней рождения, которые приходятся на каждый из дней недели. Следует учесть, что необходимы дни недели текущего года, а не года рождения.
+
+SELECT * FROM shop2020.users;
+select dayname (CONCAT(YEAR(NOW()), '-', SUBSTRING(birthday_at, 6, 10))) as day_of_week, count(*) from users group by day_of_week order by `count(*)`;
