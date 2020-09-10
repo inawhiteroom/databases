@@ -1,0 +1,28 @@
+-- 1. Составьте список пользователей users, которые осуществили хотя бы один заказ orders в интернет магазине.
+
+use shop2020;
+select * from orders o 
+join users u
+	on u.id = o.user_id;
+
+SELECT
+  id,
+  user_id,
+  (SELECT name FROM users WHERE user_id = id) AS 'order'
+FROM
+  orders;
+
+-- 2. Выведите список товаров products и разделов catalogs, который соответствует товару.
+
+use shop2020;
+select * from products p 
+join catalogs c
+	on p.catalog_id = c.id;
+
+SELECT
+  id,
+  name,
+  desription,
+  (SELECT name FROM catalogs WHERE id = catalog_id) AS 'catalogs'
+FROM
+  products;
