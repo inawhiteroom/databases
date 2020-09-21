@@ -6,9 +6,9 @@ COMMIT;
 
 -- Создайте представление, которое выводит название name товарной позиции из таблицы products и соответствующее название каталога name из таблицы catalogs.
 use shop2020;
-CREATE OR REPLACE VIEW prods(p_id, p_name, c_name) AS
-SELECT p.id AS p_id, p.name, c.name
+CREATE OR REPLACE VIEW prod(products_id, products_name, catalogs_name) AS
+SELECT p.id, p.name, c.name
 FROM products AS p
 LEFT JOIN catalogs AS c 
 ON p.catalog_id = c.id;
-SELECT * FROM prods;
+SELECT * FROM prod;
