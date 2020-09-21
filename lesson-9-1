@@ -1,0 +1,14 @@
+-- В базе данных shop и sample присутствуют одни и те же таблицы, учебной базы данных. Переместите запись id = 1 из таблицы shop.users в таблицу sample.users. Используйте транзакции.
+SELECT * FROM shop2020.users;
+START TRANSACTION;
+INSERT INTO sample.users SELECT id, name FROM shop2020.users WHERE id = 1;
+COMMIT;
+
+-- Создайте представление, которое выводит название name товарной позиции из таблицы products и соответствующее название каталога name из таблицы catalogs.
+use shop2020;
+CREATE OR REPLACE VIEW prods(p_id, p_name, c_name) AS
+SELECT p.id AS p_id, p.name, c.name
+FROM products AS p
+LEFT JOIN catalogs AS c 
+ON p.catalog_id = c.id;
+SELECT * FROM prods;
