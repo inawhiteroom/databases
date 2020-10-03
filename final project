@@ -1,0 +1,952 @@
+-- База данных, вдохновленная BOOKING.COM
+-- Содержит информацию о гостях, отелях, номерах, рейтингах, бронированиях, коммуникациях 
+
+drop database if exists booking_com;
+create database booking_com;
+
+use booking_com;
+
+-- 1
+
+DROP TABLE IF EXISTS `guests`;
+CREATE TABLE `guests` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(150) DEFAULT NULL,
+  `pass` varchar(100) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `surname` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `hometown` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `phone` (`phone`),
+  KEY `name` (`name`,`surname`));
+  
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (1, 'gfuxman0@hexun.com', 'Fea17qwU', 'Gerladina', 'Fuxman', '629-753-5923', 'F', 'Mamara');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (2, 'clovelady1@google.nl', '3DgmtzkF', 'Chuck', 'Lovelady', '480-497-4426', 'M', 'Scottsdale');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (3, 'ttuley2@ebay.com', '7zgsmR', 'Trixy', 'Tuley', '888-282-8008', 'F', 'Añatuya');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (4, 'vprince3@gnu.org', 'cWPtjziXNQLT', 'Vinita', 'Prince', '195-239-5047', 'F', 'Pervomays’k');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (5, 'achirm4@squarespace.com', 'sK4sPsy7', 'Alyssa', 'Chirm', '360-739-7659', 'F', 'Milwaukee');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (6, 'omalkie5@cafepress.com', '75HCB4qA', 'Obidiah', 'Malkie', '936-133-0980', 'M', 'Grenoble');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (7, 'ekleinlerer6@webnode.com', 'X3LuSBH4Cf', 'Emmeline', 'Kleinlerer', '472-367-5566', 'F', 'Koatas Lao');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (8, 'cmouat7@topsy.com', '8cynQe', 'Cathrin', 'Mouat', '767-244-2860', 'F', 'Oliveira do Conde');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (9, 'fknevit8@desdev.cn', 'VoVg2MC4I', 'Frederic', 'Knevit', '554-955-5275', 'M', 'Anju');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (10, 'gmoores9@mozilla.com', 'Zf5Q0bX', 'Gaelan', 'Moores', '729-600-4503', 'M', 'Klapagading');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (11, 'pwastalla@reddit.com', 'Om9hkXKldEs', 'Page', 'Wastall', '485-899-1535', 'F', 'Pamyat’ Parizhskoy Kommuny');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (12, 'kseigniorb@studiopress.com', 'zh43fBItjsn5', 'Kathlin', 'Seignior', '393-244-7342', 'F', 'Corrientes');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (13, 'aapplegarthc@mayoclinic.com', 'okU4JhiBAUB', 'Anabella', 'Applegarth', '817-759-0769', 'F', 'Xidajie');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (14, 'jconcannond@springer.com', 'HmoCtgD', 'Joye', 'Concannon', '178-684-9039', 'F', 'San Antonio');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (15, 'avallere@google.es', 'aFvetJcyjz', 'Allis', 'Valler', '641-276-4499', 'F', 'Nyala');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (16, 'rstorckef@sciencedirect.com', 'Mh7rDb1IsUS', 'Raymond', 'Storcke', '714-169-4015', 'M', 'Jatisari');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (17, 'cbarocheg@edublogs.org', 'BqlkqWwyXx9G', 'Celinka', 'Baroche', '989-656-0982', 'F', 'Mjölby');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (18, 'iknighth@netlog.com', 'mF0HPI2W3I39', 'Ingaborg', 'Knight', '648-814-4562', 'F', 'Kobiernice');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (19, 'mkeseyi@forbes.com', 'tZRQ9KDfdpJ', 'Marley', 'Kesey', '244-233-4342', 'F', 'Boende');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (20, 'cfairmanj@flavors.me', '9fn2jIwc', 'Carol-jean', 'Fairman', '154-383-3255', 'F', 'Yerofey Pavlovich');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (21, 'tkiggelk@discovery.com', 'PgozdArH', 'Thornie', 'Kiggel', '997-543-2598', 'M', 'Niafunké');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (22, 'nwhitemarshl@virginia.edu', '4lRPlalDRt', 'Nataniel', 'Whitemarsh', '952-494-0255', 'M', 'Labège');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (23, 'jjoriozm@aol.com', 'c20HnW51', 'Jacquette', 'Jorioz', '844-604-8578', 'F', 'Angoulême');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (24, 'cgamlinn@bizjournals.com', 'pDOizK', 'Coretta', 'Gamlin', '862-595-2305', 'F', 'Eirado');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (25, 'rseyo@disqus.com', 'dL5feQsVD', 'Revkah', 'Sey', '502-251-7969', 'F', 'Jianlong');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (26, 'vleverp@home.pl', 'oAIu2jlc', 'Vite', 'Lever', '784-838-5691', 'M', 'Kostakioí');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (27, 'aguidiq@mail.ru', 'wwu4pH83u5X', 'Atalanta', 'Guidi', '519-293-8517', 'F', 'Kitale');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (28, 'jrickardr@microsoft.com', 'ZwN4wYq', 'Judd', 'Rickard', '768-889-4161', 'M', 'Dumbéa');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (29, 'fjohnss@businessweek.com', 'XaOUBdQVj3zS', 'Ferguson', 'Johns', '904-713-6171', 'M', 'Wassu');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (30, 'adarwentt@amazon.de', 'i0Xx3OMLdc', 'Abbott', 'Darwent', '901-666-9978', 'M', 'Wanxian');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (31, 'gesselu@smh.com.au', 'EVMpVId4', 'Gianna', 'Essel', '239-922-7957', 'F', 'Telnice');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (32, 'ncaslettv@forbes.com', 'ti6G9G', 'Natty', 'Caslett', '125-500-6141', 'F', 'Dongyong');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (33, 'lweddellw@ycombinator.com', 'qVRZ5aAxA', 'Laurent', 'Weddell', '540-525-7422', 'M', 'København');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (34, 'kwalesbyx@ebay.com', 'JeXQSlVFV2hu', 'Keven', 'Walesby', '524-519-6158', 'M', 'Castañas');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (35, 'mlishmany@ask.com', 'v3vQ2Q4DB3MT', 'Monique', 'Lishman', '935-394-0408', 'F', 'Bogorodsk');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (36, 'tbarnesz@barnesandnoble.com', 'ltV9n1M7fAC', 'Tami', 'Barnes', '985-928-2279', 'F', 'Zelenokumsk');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (37, 'fmckerron10@nps.gov', 'VWXuQSYgl', 'Franky', 'McKerron', '735-981-2435', 'M', 'Karlskoga');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (38, 'abarrasse11@vinaora.com', 'sLYqvwFNG', 'Alana', 'Barrasse', '896-781-6917', 'F', 'Ngoc Hon Doc');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (39, 'ljewkes12@jigsy.com', 'lIKVG1SW', 'Lin', 'Jewkes', '962-694-9865', 'M', 'Prado');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (40, 'reasun13@irs.gov', 'Q2oNz2CNTalp', 'Remy', 'Easun', '438-710-2748', 'F', 'Palguyod');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (41, 'geilert14@bing.com', 'AbzN23bDhfVZ', 'Giffie', 'Eilert', '560-366-1002', 'M', 'Joaquín V. González');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (42, 'ghugle15@upenn.edu', '70nkMF', 'Genevra', 'Hugle', '931-190-3638', 'F', 'Takanosu');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (43, 'lroyle16@theguardian.com', 'ixBIWDjiIwwk', 'Ludovico', 'Royle', '724-306-6344', 'M', 'Tukbur');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (44, 'mgonning17@delicious.com', 'jKIKi6', 'Modesty', 'Gonning', '180-333-9780', 'F', 'Würzburg');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (45, 'scleal18@sakura.ne.jp', 'TXlIgYl3n3Z', 'Saundra', 'Cleal', '559-218-0285', 'F', 'Kayan');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (46, 'bkerrod19@cnbc.com', '0SdUEUtCTZ6', 'Bernarr', 'Kerrod', '740-801-7297', 'M', 'Mangarine');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (47, 'cfrancescuzzi1a@tinyurl.com', 'gBAEPl', 'Carl', 'Francescuzzi', '694-348-5521', 'M', 'Yoshkar-Ola');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (48, 'gwickersham1b@engadget.com', '1jxO35yx26', 'Glenden', 'Wickersham', '131-177-0929', 'M', 'Biankouma');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (49, 'rcromer1c@dropbox.com', 'RUgyaw', 'Rubie', 'Cromer', '658-777-6066', 'F', 'Nereta');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (50, 'wcrisall1d@google.com.au', 'Rwxxilk', 'Ware', 'Crisall', '501-664-6349', 'M', 'San Juan Sacatepéquez');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (51, 'tdavis1e@usatoday.com', '7CdRMV81zaQ', 'Thatcher', 'Davis', '595-754-1183', 'M', 'Sewon');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (52, 'dkeppie1f@berkeley.edu', 'BPq5cCF', 'Donna', 'Keppie', '118-299-8202', 'F', 'Hali');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (53, 'adarell1g@yale.edu', 'LHoWfsX', 'Armand', 'Darell', '389-278-2832', 'M', 'Ciénaga de Oro');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (54, 'ahalfhead1h@wikispaces.com', '1UbxbnLfC', 'Ash', 'Halfhead', '875-840-8831', 'M', 'Nowa Dęba');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (55, 'rdowears1i@buzzfeed.com', 'Abbz6p', 'Remus', 'Dowears', '745-523-1200', 'M', 'La Broquerie');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (56, 'gclell1j@paginegialle.it', 'DFe6iYJES15', 'Goran', 'Clell', '988-985-2808', 'M', 'Coayllo');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (57, 'eknewstub1k@craigslist.org', 'nUDUWc', 'Elene', 'Knewstub', '721-705-5543', 'F', 'Oslo');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (58, 'kdurtnal1l@google.it', 'VERcBJ1XASH', 'Kendell', 'Durtnal', '214-212-0417', 'M', 'Dallas');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (59, 'lseabridge1m@unesco.org', 'PYKRirF', 'Lewiss', 'Seabridge', '360-326-8667', 'M', 'Munjul');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (60, 'bgodfree1n@furl.net', 'HyeFAVL', 'Bellanca', 'Godfree', '577-681-7854', 'F', 'San Rafael del Sur');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (61, 'gwolfarth1o@smh.com.au', 'AKS49U62', 'Gaven', 'Wolfarth', '141-193-3432', 'M', 'Lusong');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (62, 'skarchowski1p@myspace.com', 'wPPvnt9QL', 'Selle', 'Karchowski', '555-551-2181', 'F', 'Juršinci');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (63, 'ewegner1q@newsvine.com', '8zhHxQRMM', 'Ethelred', 'Wegner', '979-445-8397', 'M', 'Krajan');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (64, 'pmityakov1r@aboutads.info', 'UF3Gow1kBw3', 'Parker', 'Mityakov', '283-297-6105', 'M', 'Sukakarya');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (65, 'fshivlin1s@prlog.org', 'x2nfTGLm', 'Florry', 'Shivlin', '308-541-8537', 'F', 'Vallenar');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (66, 'rthorneley1t@elegantthemes.com', 'pg6ZDkDo6Wp', 'Rhianon', 'Thorneley', '280-598-7328', 'F', 'Pavia');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (67, 'franderson1u@disqus.com', 'ksWajduxCVPl', 'Freeman', 'Randerson', '377-997-3549', 'M', 'Matina');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (68, 'hcockitt1v@github.io', 'QtGh9D', 'Harmon', 'Cockitt', '863-336-4010', 'M', 'Jeremi');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (69, 'mmchirrie1w@bing.com', 'fscjmPm', 'Marietta', 'M''Chirrie', '269-524-2138', 'F', 'Borås');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (70, 'rtebb1x@opera.com', 'RPJeZUADK', 'Rosalinda', 'Tebb', '640-209-3971', 'F', 'Māmūnīyeh');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (71, 'cwhyberd1y@altervista.org', 'YGREmf', 'Caterina', 'Whyberd', '772-717-5295', 'F', 'Masaran');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (72, 'cnewhouse1z@gizmodo.com', '3doHZc', 'Cammy', 'Newhouse', '261-111-6980', 'F', 'Baturaden');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (73, 'bscoone20@msn.com', 'DsP1Nv', 'Bendicty', 'Scoone', '316-170-9844', 'M', 'Taubaté');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (74, 'bhuffy21@nba.com', 'WUIBMO', 'Base', 'Huffy', '125-481-5545', 'M', 'Lemery');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (75, 'gtilberry22@exblog.jp', '0yBsoLaQ3UZV', 'Glyn', 'Tilberry', '923-477-0219', 'M', 'Cicurug');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (76, 'aphillins23@goo.ne.jp', 'tNZRY50uOr', 'Arie', 'Phillins', '928-908-8543', 'M', 'Quanyang');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (77, 'mlawlan24@ucoz.com', '6KNEWmXc8Q', 'Miguela', 'Lawlan', '642-494-2328', 'F', 'Bilbays');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (78, 'teastam25@furl.net', 'VGWEzDxU', 'Tyne', 'Eastam', '258-787-5826', 'F', 'Pacapausa');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (79, 'wmanwaring26@princeton.edu', '4HOBZz', 'Waldo', 'Manwaring', '523-963-9643', 'M', 'Arevik');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (80, 'ekeelan27@telegraph.co.uk', 'xlJ2xJFjZ', 'Em', 'Keelan', '429-757-2291', 'M', 'Malaga');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (81, 'gwilmot28@about.com', 'HC1NZDlvV', 'Giacinta', 'Wilmot', '109-799-6659', 'F', 'Quichuay');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (82, 'swilfing29@google.nl', 'PwZZkjDcF', 'Saunderson', 'Wilfing', '820-670-7008', 'M', 'Ḩabūr');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (83, 'bcamelia2a@rambler.ru', 'OrkkfC3Iv', 'Benni', 'Camelia', '712-202-0644', 'F', 'Magong');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (84, 'lshort2b@trellian.com', 'iZfoQszn', 'Luce', 'Short', '226-280-0731', 'M', 'Hrochův Týnec');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (85, 'fburnham2c@businessweek.com', '2QyzS3KbJb', 'Francyne', 'Burnham', '292-983-7702', 'F', 'Podgorenskiy');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (86, 'sgoosey2d@edublogs.org', 'lCfaGYitFNq', 'Sammy', 'Goosey', '603-145-1977', 'F', 'Oesao');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (87, 'wfitton2e@php.net', '98ETbCqEl8jT', 'Will', 'Fitton', '227-188-3086', 'M', 'Neundeut');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (88, 'bcossem2f@nationalgeographic.com', 'IwkP48bMS', 'Baryram', 'Cossem', '515-354-4625', 'M', 'Hujra');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (89, 'ltitcomb2g@ocn.ne.jp', 'tKk5AYLN', 'Linc', 'Titcomb', '329-517-3688', 'M', 'Vestmanna');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (90, 'dandrews2h@sbwire.com', '81nITGo', 'Donall', 'Andrews', '984-823-5005', 'M', 'Sorinomo');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (91, 'vleaney2i@economist.com', '9bbrz0K9', 'Viviene', 'Leaney', '621-402-6598', 'F', 'Leganes');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (92, 'mfargher2j@adobe.com', 'DY38MKCQuW', 'Martguerita', 'Fargher', '177-423-7544', 'F', 'Uddevalla');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (93, 'dpigeram2k@npr.org', '7XfZVED2yr', 'Dillon', 'Pigeram', '288-540-2367', 'M', 'Labrang');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (94, 'kmerrett2l@wordpress.org', 'wOV0mB', 'Katrine', 'Merrett', '410-108-7611', 'F', 'Karangnongko');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (95, 'kroughan2m@icq.com', '1hl2zGG', 'Krisha', 'Roughan', '224-607-9168', 'M', 'Gigant');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (96, 'sstigger2n@netvibes.com', 'myLyHR1b', 'Seline', 'Stigger', '251-136-6306', 'F', 'Changning');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (97, 'hbeumant2o@uiuc.edu', 'nccozkSurFz', 'Howey', 'Beumant', '112-869-3403', 'M', 'Gus’-Zheleznyy');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (98, 'ditzig2p@hibu.com', 'iJ7vDclQ', 'Davie', 'Itzig', '747-188-7424', 'M', 'Damao');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (99, 'fgolder2q@jiathis.com', 'kGIDee', 'Florina', 'Golder', '536-850-5632', 'F', 'Xiaping');
+insert into guests (id, email, pass, name, surname, phone, gender, hometown) values (100, 'dabramino2r@irs.gov', 'xvMKWMECcshz', 'Dell', 'Abramino', '789-474-1121', 'F', 'Likhobory');
+  
+  -- 2
+  
+DROP TABLE IF EXISTS `hotels`;
+CREATE TABLE `hotels` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `hotel_name` varchar(50) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`));
+  
+insert into hotels (id, hotel_name, country, city, description) values (1, 'Denesik, Nikolaus and Torphy', 'Colombia', 'Chinchiná', 'pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in');
+insert into hotels (id, hotel_name, country, city, description) values (2, 'Rogahn and Sons', 'Indonesia', 'Pineleng', 'eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien');
+insert into hotels (id, hotel_name, country, city, description) values (3, 'Corkery Group', 'China', 'Jichang', 'facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum');
+insert into hotels (id, hotel_name, country, city, description) values (4, 'Smith, Lesch and Hegmann', 'Philippines', 'San Mariano', 'vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor');
+insert into hotels (id, hotel_name, country, city, description) values (5, 'Windler, Jacobs and Moen', 'Italy', 'Messina', 'quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id');
+insert into hotels (id, hotel_name, country, city, description) values (6, 'Langworth Inc', 'Portugal', 'Vilarelho', 'aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in');
+insert into hotels (id, hotel_name, country, city, description) values (7, 'Rogahn-Reynolds', 'Hungary', 'Budapest', 'proin risus praesent lectus vestibulum quam sapien varius ut blandit non interdum in ante vestibulum ante ipsum');
+insert into hotels (id, hotel_name, country, city, description) values (8, 'Renner-Rath', 'Indonesia', 'Winong', 'phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus');
+insert into hotels (id, hotel_name, country, city, description) values (9, 'Olson-Bednar', 'Poland', 'Racławice', 'porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam');
+insert into hotels (id, hotel_name, country, city, description) values (10, 'King-Senger', 'China', 'Xincun', 'vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam');
+insert into hotels (id, hotel_name, country, city, description) values (11, 'Little-Kessler', 'China', 'Gangou', 'in consequat ut nulla sed accumsan felis ut at dolor quis');
+insert into hotels (id, hotel_name, country, city, description) values (12, 'Friesen, Towne and Kilback', 'Bangladesh', 'Burhānuddin', 'dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus');
+insert into hotels (id, hotel_name, country, city, description) values (13, 'Denesik Group', 'Japan', 'Narutō', 'dui vel sem sed sagittis nam congue risus semper porta');
+insert into hotels (id, hotel_name, country, city, description) values (14, 'Von-Fisher', 'Portugal', 'Póvoa de Penela', 'elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis');
+insert into hotels (id, hotel_name, country, city, description) values (15, 'Rolfson, Hamill and Spinka', 'China', 'Marzhing', 'sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat');
+insert into hotels (id, hotel_name, country, city, description) values (16, 'Swift Group', 'China', 'Mingshan', 'non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit');
+insert into hotels (id, hotel_name, country, city, description) values (17, 'Fritsch-Pfeffer', 'France', 'Aix-en-Provence', 'volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed');
+insert into hotels (id, hotel_name, country, city, description) values (18, 'O''Reilly and Sons', 'Russia', 'Rostokino', 'dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi');
+insert into hotels (id, hotel_name, country, city, description) values (19, 'Cruickshank, Lueilwitz and Kunze', 'Poland', 'Gorzyce', 'lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede');
+insert into hotels (id, hotel_name, country, city, description) values (20, 'Gleason LLC', 'Russia', 'Tashla', 'erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a');
+insert into hotels (id, hotel_name, country, city, description) values (21, 'Herman, Cremin and Ledner', 'Kiribati', 'Temaiku Village', 'turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis');
+insert into hotels (id, hotel_name, country, city, description) values (22, 'Considine-Raynor', 'Poland', 'Bolesławiec', 'tincidunt eget tempus vel pede morbi porttitor lorem id ligula');
+insert into hotels (id, hotel_name, country, city, description) values (23, 'Schoen Inc', 'China', 'Kokagax', 'sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus');
+insert into hotels (id, hotel_name, country, city, description) values (24, 'Kling Inc', 'Israel', 'Even Yehuda', 'vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat');
+insert into hotels (id, hotel_name, country, city, description) values (25, 'Rogahn, Prohaska and Gaylord', 'Bulgaria', 'Mŭglizh', 'pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien');
+insert into hotels (id, hotel_name, country, city, description) values (26, 'Schultz-Stark', 'Indonesia', 'Sukamulya', 'lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero');
+insert into hotels (id, hotel_name, country, city, description) values (27, 'Bartoletti-Schulist', 'Greece', 'Pámfylla', 'adipiscing elit proin risus praesent lectus vestibulum quam sapien varius ut');
+insert into hotels (id, hotel_name, country, city, description) values (28, 'Skiles, Turner and Lemke', 'United States', 'New Orleans', 'ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere');
+insert into hotels (id, hotel_name, country, city, description) values (29, 'Littel, Dach and Medhurst', 'Mongolia', 'Sharga', 'pretium quis lectus suspendisse potenti in eleifend quam a odio in hac');
+insert into hotels (id, hotel_name, country, city, description) values (30, 'Rath, Wuckert and Sanford', 'Azerbaijan', 'Qobu', 'libero rutrum ac lobortis vel dapibus at diam nam tristique tortor eu');
+insert into hotels (id, hotel_name, country, city, description) values (31, 'Gislason LLC', 'China', 'Longhu', 'id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer');
+insert into hotels (id, hotel_name, country, city, description) values (32, 'Christiansen-Strosin', 'Mauritania', 'Rosso', 'lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi');
+insert into hotels (id, hotel_name, country, city, description) values (33, 'Bartell, Prohaska and Schneider', 'Albania', 'Skore', 'suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus');
+insert into hotels (id, hotel_name, country, city, description) values (34, 'Hand, Aufderhar and Gutkowski', 'Togo', 'Tchamba', 'consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non');
+insert into hotels (id, hotel_name, country, city, description) values (35, 'Bashirian, Wuckert and Spencer', 'China', 'Daqiao', 'lectus in est risus auctor sed tristique in tempus sit amet');
+insert into hotels (id, hotel_name, country, city, description) values (36, 'Huel, O''Kon and Cole', 'Honduras', 'Bálsamo Oriental', 'ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at');
+insert into hotels (id, hotel_name, country, city, description) values (37, 'Reilly, Weissnat and Bayer', 'Indonesia', 'Cilampuyang', 'semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id');
+insert into hotels (id, hotel_name, country, city, description) values (38, 'Raynor, Romaguera and Waters', 'Indonesia', 'Sumuran', 'suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus');
+insert into hotels (id, hotel_name, country, city, description) values (39, 'Roob, Jenkins and Lockman', 'Zambia', 'Kawambwa', 'sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue');
+insert into hotels (id, hotel_name, country, city, description) values (40, 'Pollich, Nicolas and Labadie', 'Indonesia', 'Pretana', 'nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent');
+insert into hotels (id, hotel_name, country, city, description) values (41, 'Barrows Inc', 'Indonesia', 'Krajan Winong', 'placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros');
+insert into hotels (id, hotel_name, country, city, description) values (42, 'Morissette LLC', 'Philippines', 'Calanogas', 'nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel');
+insert into hotels (id, hotel_name, country, city, description) values (43, 'Dare-Kassulke', 'Poland', 'Trawniki', 'tempus sit amet sem fusce consequat nulla nisl nunc nisl');
+insert into hotels (id, hotel_name, country, city, description) values (44, 'Kunde-Ritchie', 'Luxembourg', 'Schengen', 'condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo');
+insert into hotels (id, hotel_name, country, city, description) values (45, 'Orn, Smitham and Gutkowski', 'United States', 'New Hyde Park', 'nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel');
+insert into hotels (id, hotel_name, country, city, description) values (46, 'Homenick, Barton and Blick', 'Poland', 'Bystra', 'semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante');
+insert into hotels (id, hotel_name, country, city, description) values (47, 'Douglas-Bayer', 'Croatia', 'Tučepi', 'lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl');
+insert into hotels (id, hotel_name, country, city, description) values (48, 'Vandervort-Harvey', 'Brazil', 'Esplanada', 'morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in');
+insert into hotels (id, hotel_name, country, city, description) values (49, 'Schneider and Sons', 'Peru', 'Vilca', 'non mauris morbi non lectus aliquam sit amet diam in magna bibendum');
+insert into hotels (id, hotel_name, country, city, description) values (50, 'Ondricka-Bogan', 'Colombia', 'Villavicencio', 'rhoncus dui vel sem sed sagittis nam congue risus semper');
+insert into hotels (id, hotel_name, country, city, description) values (51, 'Armstrong Inc', 'Luxembourg', 'Hesperange', 'tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien');
+insert into hotels (id, hotel_name, country, city, description) values (52, 'Conn-Goyette', 'Peru', 'Sojo', 'pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor');
+insert into hotels (id, hotel_name, country, city, description) values (53, 'Heaney, Stroman and Jacobi', 'China', 'Yulong', 'non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue');
+insert into hotels (id, hotel_name, country, city, description) values (54, 'Carroll-Rau', 'Brazil', 'Jardim', 'massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras');
+insert into hotels (id, hotel_name, country, city, description) values (55, 'Flatley, Bogan and Mayert', 'Portugal', 'Cabanas', 'tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna');
+insert into hotels (id, hotel_name, country, city, description) values (56, 'Marvin-Kohler', 'Ukraine', 'Shevchenkove', 'aliquam convallis nunc proin at turpis a pede posuere nonummy integer');
+insert into hotels (id, hotel_name, country, city, description) values (57, 'Kunze Group', 'Japan', 'Sakura', 'sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec');
+insert into hotels (id, hotel_name, country, city, description) values (58, 'Kunze-Rosenbaum', 'China', 'Zishan', 'lorem ipsum dolor sit amet consectetuer adipiscing elit proin risus praesent lectus vestibulum quam sapien varius ut blandit');
+insert into hotels (id, hotel_name, country, city, description) values (59, 'Hyatt, Lakin and Kilback', 'Brazil', 'Santo Antônio do Monte', 'tempus vivamus in felis eu sapien cursus vestibulum proin eu');
+insert into hotels (id, hotel_name, country, city, description) values (60, 'Schmidt Inc', 'France', 'Vedène', 'nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris');
+insert into hotels (id, hotel_name, country, city, description) values (61, 'Towne, MacGyver and Leuschke', 'Palestinian Territory', 'An Naşşārīyah', 'magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia');
+insert into hotels (id, hotel_name, country, city, description) values (62, 'Rippin, Hoppe and Gusikowski', 'Ukraine', 'Stavyshche', 'odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero');
+insert into hotels (id, hotel_name, country, city, description) values (63, 'Kohler-Romaguera', 'China', 'Dongqu', 'pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet');
+insert into hotels (id, hotel_name, country, city, description) values (64, 'Gerhold-Hoppe', 'Poland', 'Mogilany', 'nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue');
+insert into hotels (id, hotel_name, country, city, description) values (65, 'Renner Inc', 'Laos', 'Lamam', 'urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non');
+insert into hotels (id, hotel_name, country, city, description) values (66, 'Kovacek, Beahan and Nitzsche', 'Dominican Republic', 'Baní', 'amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices');
+insert into hotels (id, hotel_name, country, city, description) values (67, 'Langworth Group', 'Vietnam', 'An Lão', 'in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque');
+insert into hotels (id, hotel_name, country, city, description) values (68, 'Spencer-Turner', 'North Korea', 'Hoeryŏng', 'felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam');
+insert into hotels (id, hotel_name, country, city, description) values (69, 'Hoppe, Hirthe and Boehm', 'Philippines', 'Del Pilar', 'aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer');
+insert into hotels (id, hotel_name, country, city, description) values (70, 'Kutch LLC', 'France', 'Marseille', 'at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt');
+insert into hotels (id, hotel_name, country, city, description) values (71, 'Schimmel and Sons', 'China', 'Sanhui', 'sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat');
+insert into hotels (id, hotel_name, country, city, description) values (72, 'Renner Group', 'Indonesia', 'Makale', 'elit proin interdum mauris non ligula pellentesque ultrices phasellus id');
+insert into hotels (id, hotel_name, country, city, description) values (73, 'Gutmann, Schmitt and Jaskolski', 'Indonesia', 'Lodan Wetan', 'quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris');
+insert into hotels (id, hotel_name, country, city, description) values (74, 'Balistreri-Beahan', 'China', 'Wangcheng', 'ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor');
+insert into hotels (id, hotel_name, country, city, description) values (75, 'Volkman, Fay and Jerde', 'Ukraine', 'Kulykiv', 'ante ipsum primis in faucibus orci luctus et ultrices posuere');
+insert into hotels (id, hotel_name, country, city, description) values (76, 'Turner, Wolff and Kuphal', 'Chad', 'Koumra', 'pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est');
+insert into hotels (id, hotel_name, country, city, description) values (77, 'Gutkowski, Yost and Barrows', 'Poland', 'Żabieniec', 'sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla');
+insert into hotels (id, hotel_name, country, city, description) values (78, 'Grimes-Gorczany', 'Indonesia', 'Gapluk', 'erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis');
+insert into hotels (id, hotel_name, country, city, description) values (79, 'Block, Jaskolski and Wehner', 'Thailand', 'At Samat', 'nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac');
+insert into hotels (id, hotel_name, country, city, description) values (80, 'Harber-Walter', 'Indonesia', 'Pejek', 'nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit');
+insert into hotels (id, hotel_name, country, city, description) values (81, 'Metz-Koepp', 'China', 'Xiangba', 'aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis');
+insert into hotels (id, hotel_name, country, city, description) values (82, 'Aufderhar-Dach', 'Sweden', 'Grästorp', 'et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing');
+insert into hotels (id, hotel_name, country, city, description) values (83, 'Stanton Group', 'Sweden', 'Kallinge', 'parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes');
+insert into hotels (id, hotel_name, country, city, description) values (84, 'Keebler-Anderson', 'Bosnia and Herzegovina', 'Vozuća', 'suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit');
+insert into hotels (id, hotel_name, country, city, description) values (85, 'Goodwin, Harris and Runte', 'China', 'Daminggong', 'in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam');
+insert into hotels (id, hotel_name, country, city, description) values (86, 'Lebsack and Sons', 'Indonesia', 'Cikiray', 'nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in');
+insert into hotels (id, hotel_name, country, city, description) values (87, 'Boyer Inc', 'United States', 'North Little Rock', 'pellentesque volutpat dui maecenas tristique est et tempus semper est quam');
+insert into hotels (id, hotel_name, country, city, description) values (88, 'Lubowitz, Tromp and Gleason', 'Chile', 'Molina', 'vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper');
+insert into hotels (id, hotel_name, country, city, description) values (89, 'Casper, Kuhlman and Watsica', 'Czech Republic', 'Úštěk', 'dui luctus rutrum nulla tellus in sagittis dui vel nisl duis');
+insert into hotels (id, hotel_name, country, city, description) values (90, 'Steuber and Sons', 'Croatia', 'Selnica', 'volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea');
+insert into hotels (id, hotel_name, country, city, description) values (91, 'Carter-Thiel', 'United States', 'Dallas', 'accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi');
+insert into hotels (id, hotel_name, country, city, description) values (92, 'Ortiz-Ullrich', 'Portugal', 'Lameiro', 'sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam');
+insert into hotels (id, hotel_name, country, city, description) values (93, 'Koch-Hilpert', 'China', 'Xujiahe', 'consequat in consequat ut nulla sed accumsan felis ut at dolor');
+insert into hotels (id, hotel_name, country, city, description) values (94, 'O''Conner Inc', 'Indonesia', 'Bedayu', 'justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem');
+insert into hotels (id, hotel_name, country, city, description) values (95, 'Schowalter Inc', 'Philippines', 'Caraga', 'sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut');
+insert into hotels (id, hotel_name, country, city, description) values (96, 'Reilly-Tromp', 'China', 'Quyangqiao', 'quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et');
+insert into hotels (id, hotel_name, country, city, description) values (97, 'Welch, Doyle and Crona', 'China', 'Huaqiao', 'molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et');
+insert into hotels (id, hotel_name, country, city, description) values (98, 'Daniel-Bosco', 'Argentina', 'El Carril', 'odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor');
+insert into hotels (id, hotel_name, country, city, description) values (99, 'Denesik Group', 'Thailand', 'Khon Buri', 'lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque');
+insert into hotels (id, hotel_name, country, city, description) values (100, 'Emmerich-Schulist', 'Cuba', 'Arroyo Naranjo', 'in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus');
+  
+  -- 3
+  
+  DROP TABLE IF EXISTS `reviews`;
+  CREATE TABLE `reviews` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `guest_id` bigint unsigned NOT NULL,
+  `hotel_id` bigint unsigned NOT NULL,
+  `body` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `guest_id` (`guest_id`),
+  KEY `hotel_id` (`hotel_id`),
+  CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`id`),
+  CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`));
+  
+insert into reviews (id, guest_id, hotel_id, body) values (1, 62, 21, 'vestibulum sit amet cursus id turpis integer aliquet massa id lobortis');
+insert into reviews (id, guest_id, hotel_id, body) values (2, 85, 22, 'in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id');
+insert into reviews (id, guest_id, hotel_id, body) values (3, 79, 47, 'posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a');
+insert into reviews (id, guest_id, hotel_id, body) values (4, 27, 52, 'lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum');
+insert into reviews (id, guest_id, hotel_id, body) values (5, 51, 86, 'arcu libero rutrum ac lobortis vel dapibus at diam nam tristique tortor eu');
+insert into reviews (id, guest_id, hotel_id, body) values (6, 96, 34, 'aliquam quis turpis eget elit sodales scelerisque mauris sit amet');
+insert into reviews (id, guest_id, hotel_id, body) values (7, 91, 90, 'amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis');
+insert into reviews (id, guest_id, hotel_id, body) values (8, 85, 34, 'dui vel nisl duis ac nibh fusce lacus purus aliquet at');
+insert into reviews (id, guest_id, hotel_id, body) values (9, 96, 98, 'in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem');
+insert into reviews (id, guest_id, hotel_id, body) values (10, 59, 92, 'erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque');
+insert into reviews (id, guest_id, hotel_id, body) values (11, 79, 6, 'laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis');
+insert into reviews (id, guest_id, hotel_id, body) values (12, 8, 81, 'nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam');
+insert into reviews (id, guest_id, hotel_id, body) values (13, 59, 63, 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas');
+insert into reviews (id, guest_id, hotel_id, body) values (14, 16, 92, 'convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien');
+insert into reviews (id, guest_id, hotel_id, body) values (15, 52, 43, 'nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices');
+insert into reviews (id, guest_id, hotel_id, body) values (16, 82, 73, 'donec quis orci eget orci vehicula condimentum curabitur in libero ut');
+insert into reviews (id, guest_id, hotel_id, body) values (17, 19, 59, 'ac diam cras pellentesque volutpat dui maecenas tristique est et tempus');
+insert into reviews (id, guest_id, hotel_id, body) values (18, 91, 77, 'vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros');
+insert into reviews (id, guest_id, hotel_id, body) values (19, 81, 45, 'rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede');
+insert into reviews (id, guest_id, hotel_id, body) values (20, 85, 73, 'nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc');
+insert into reviews (id, guest_id, hotel_id, body) values (21, 27, 19, 'fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat');
+insert into reviews (id, guest_id, hotel_id, body) values (22, 38, 74, 'at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio');
+insert into reviews (id, guest_id, hotel_id, body) values (23, 83, 31, 'porta volutpat quam pede lobortis ligula sit amet eleifend pede');
+insert into reviews (id, guest_id, hotel_id, body) values (24, 85, 97, 'quam sapien varius ut blandit non interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et ultrices');
+insert into reviews (id, guest_id, hotel_id, body) values (25, 78, 73, 'non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis');
+insert into reviews (id, guest_id, hotel_id, body) values (26, 46, 15, 'convallis nunc proin at turpis a pede posuere nonummy integer non velit donec');
+insert into reviews (id, guest_id, hotel_id, body) values (27, 46, 99, 'suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis');
+insert into reviews (id, guest_id, hotel_id, body) values (28, 49, 34, 'neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio');
+insert into reviews (id, guest_id, hotel_id, body) values (29, 50, 19, 'cras in purus eu magna vulputate luctus cum sociis natoque penatibus');
+insert into reviews (id, guest_id, hotel_id, body) values (30, 86, 92, 'sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum');
+insert into reviews (id, guest_id, hotel_id, body) values (31, 54, 46, 'ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra');
+insert into reviews (id, guest_id, hotel_id, body) values (32, 23, 97, 'nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae');
+insert into reviews (id, guest_id, hotel_id, body) values (33, 67, 89, 'lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat');
+insert into reviews (id, guest_id, hotel_id, body) values (34, 4, 40, 'potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non');
+insert into reviews (id, guest_id, hotel_id, body) values (35, 89, 77, 'aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris');
+insert into reviews (id, guest_id, hotel_id, body) values (36, 62, 36, 'faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet');
+insert into reviews (id, guest_id, hotel_id, body) values (37, 50, 93, 'pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices');
+insert into reviews (id, guest_id, hotel_id, body) values (38, 45, 22, 'accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor');
+insert into reviews (id, guest_id, hotel_id, body) values (39, 52, 4, 'suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus');
+insert into reviews (id, guest_id, hotel_id, body) values (40, 19, 50, 'tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim');
+insert into reviews (id, guest_id, hotel_id, body) values (41, 45, 9, 'ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus');
+insert into reviews (id, guest_id, hotel_id, body) values (42, 98, 4, 'consequat lectus in est risus auctor sed tristique in tempus sit');
+insert into reviews (id, guest_id, hotel_id, body) values (43, 8, 68, 'primis in faucibus orci luctus et ultrices posuere cubilia curae');
+insert into reviews (id, guest_id, hotel_id, body) values (44, 30, 15, 'ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id');
+insert into reviews (id, guest_id, hotel_id, body) values (45, 44, 46, 'turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis');
+insert into reviews (id, guest_id, hotel_id, body) values (46, 22, 79, 'et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis');
+insert into reviews (id, guest_id, hotel_id, body) values (47, 52, 60, 'nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in');
+insert into reviews (id, guest_id, hotel_id, body) values (48, 17, 77, 'ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices');
+insert into reviews (id, guest_id, hotel_id, body) values (49, 97, 75, 'ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est');
+insert into reviews (id, guest_id, hotel_id, body) values (50, 54, 41, 'ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris');
+insert into reviews (id, guest_id, hotel_id, body) values (51, 12, 32, 'at velit vivamus vel nulla eget eros elementum pellentesque quisque');
+insert into reviews (id, guest_id, hotel_id, body) values (52, 90, 66, 'ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum');
+insert into reviews (id, guest_id, hotel_id, body) values (53, 15, 72, 'nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet');
+insert into reviews (id, guest_id, hotel_id, body) values (54, 69, 60, 'tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci');
+insert into reviews (id, guest_id, hotel_id, body) values (55, 77, 25, 'eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu');
+insert into reviews (id, guest_id, hotel_id, body) values (56, 26, 67, 'rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus');
+insert into reviews (id, guest_id, hotel_id, body) values (57, 52, 27, 'felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec');
+insert into reviews (id, guest_id, hotel_id, body) values (58, 14, 65, 'quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec');
+insert into reviews (id, guest_id, hotel_id, body) values (59, 68, 22, 'odio cras mi pede malesuada in imperdiet et commodo vulputate justo');
+insert into reviews (id, guest_id, hotel_id, body) values (60, 39, 52, 'ultrices libero non mattis pulvinar nulla pede ullamcorper augue a');
+insert into reviews (id, guest_id, hotel_id, body) values (61, 4, 80, 'sapien sapien non mi integer ac neque duis bibendum morbi non quam nec');
+insert into reviews (id, guest_id, hotel_id, body) values (62, 40, 15, 'quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit');
+insert into reviews (id, guest_id, hotel_id, body) values (63, 22, 53, 'amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan');
+insert into reviews (id, guest_id, hotel_id, body) values (64, 79, 93, 'ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum');
+insert into reviews (id, guest_id, hotel_id, body) values (65, 87, 46, 'phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut');
+insert into reviews (id, guest_id, hotel_id, body) values (66, 64, 75, 'tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis');
+insert into reviews (id, guest_id, hotel_id, body) values (67, 91, 16, 'integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices');
+insert into reviews (id, guest_id, hotel_id, body) values (68, 94, 66, 'vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl');
+insert into reviews (id, guest_id, hotel_id, body) values (69, 65, 48, 'ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis');
+insert into reviews (id, guest_id, hotel_id, body) values (70, 33, 95, 'eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing');
+insert into reviews (id, guest_id, hotel_id, body) values (71, 90, 84, 'nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis');
+insert into reviews (id, guest_id, hotel_id, body) values (72, 87, 54, 'vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat');
+insert into reviews (id, guest_id, hotel_id, body) values (73, 55, 23, 'porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique');
+insert into reviews (id, guest_id, hotel_id, body) values (74, 74, 62, 'diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi');
+insert into reviews (id, guest_id, hotel_id, body) values (75, 90, 43, 'in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean');
+insert into reviews (id, guest_id, hotel_id, body) values (76, 19, 61, 'eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum');
+insert into reviews (id, guest_id, hotel_id, body) values (77, 4, 30, 'morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi');
+insert into reviews (id, guest_id, hotel_id, body) values (78, 91, 61, 'nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum');
+insert into reviews (id, guest_id, hotel_id, body) values (79, 12, 61, 'lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus');
+insert into reviews (id, guest_id, hotel_id, body) values (80, 26, 58, 'volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse');
+insert into reviews (id, guest_id, hotel_id, body) values (81, 85, 12, 'dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed');
+insert into reviews (id, guest_id, hotel_id, body) values (82, 50, 76, 'sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam');
+insert into reviews (id, guest_id, hotel_id, body) values (83, 75, 25, 'massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi');
+insert into reviews (id, guest_id, hotel_id, body) values (84, 97, 52, 'consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo');
+insert into reviews (id, guest_id, hotel_id, body) values (85, 61, 57, 'blandit lacinia erat vestibulum sed magna at nunc commodo placerat');
+insert into reviews (id, guest_id, hotel_id, body) values (86, 32, 13, 'morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus');
+insert into reviews (id, guest_id, hotel_id, body) values (87, 8, 57, 'interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus');
+insert into reviews (id, guest_id, hotel_id, body) values (88, 39, 20, 'odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis');
+insert into reviews (id, guest_id, hotel_id, body) values (89, 45, 18, 'eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt');
+insert into reviews (id, guest_id, hotel_id, body) values (90, 64, 13, 'justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id');
+insert into reviews (id, guest_id, hotel_id, body) values (91, 26, 14, 'pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue');
+insert into reviews (id, guest_id, hotel_id, body) values (92, 69, 4, 'sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim');
+insert into reviews (id, guest_id, hotel_id, body) values (93, 70, 70, 'dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque');
+insert into reviews (id, guest_id, hotel_id, body) values (94, 39, 97, 'rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat');
+insert into reviews (id, guest_id, hotel_id, body) values (95, 82, 20, 'odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id');
+insert into reviews (id, guest_id, hotel_id, body) values (96, 42, 63, 'in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec');
+insert into reviews (id, guest_id, hotel_id, body) values (97, 41, 79, 'proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices');
+insert into reviews (id, guest_id, hotel_id, body) values (98, 95, 42, 'ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien');
+insert into reviews (id, guest_id, hotel_id, body) values (99, 48, 18, 'justo eu massa donec dapibus duis at velit eu est');
+insert into reviews (id, guest_id, hotel_id, body) values (100, 33, 97, 'ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit');
+
+  -- 4
+  
+  DROP TABLE IF EXISTS `messages`;
+  CREATE TABLE `messages` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `from_guest_id` bigint unsigned NOT NULL,
+  `to_hotel_id` bigint unsigned NOT NULL,
+  `from_hotel_id` bigint unsigned NOT NULL,
+  `to_guest_id` bigint unsigned NOT NULL,
+  `body` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `from_guest_id` (`from_guest_id`),
+  KEY `to_hotel_id` (`to_hotel_id`),
+  KEY `from_hotel_id` (`from_hotel_id`),
+  KEY `to_guest_id` (`to_guest_id`),
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`from_guest_id`) REFERENCES `guests` (`id`),
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`to_hotel_id`) REFERENCES `hotels` (`id`),
+  CONSTRAINT `messages_ibfk_3` FOREIGN KEY (`from_hotel_id`) REFERENCES `hotels` (`id`),
+  CONSTRAINT `messages_ibfk_4` FOREIGN KEY (`to_guest_id`) REFERENCES `guests` (`id`));
+  
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (1, 96, 20, 38, 10, 'erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (2, 81, 94, 8, 72, 'ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (3, 71, 55, 58, 6, 'nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (4, 36, 88, 48, 51, 'posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (5, 50, 38, 55, 96, 'duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (6, 30, 1, 60, 20, 'nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (7, 86, 88, 33, 27, 'proin at turpis a pede posuere nonummy integer non velit');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (8, 1, 81, 85, 52, 'eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (9, 5, 81, 64, 27, 'faucibus accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (10, 92, 12, 33, 18, 'rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (11, 15, 44, 38, 55, 'nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (12, 6, 33, 68, 45, 'lectus in est risus auctor sed tristique in tempus sit amet sem');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (13, 17, 57, 83, 96, 'ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (14, 31, 82, 52, 78, 'sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (15, 64, 14, 19, 100, 'vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (16, 72, 75, 20, 56, 'semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (17, 14, 91, 3, 65, 'amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (18, 70, 24, 98, 78, 'tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (19, 39, 90, 56, 83, 'iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (20, 75, 38, 34, 100, 'proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (21, 43, 5, 14, 92, 'iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (22, 77, 57, 69, 50, 'dui luctus rutrum nulla tellus in sagittis dui vel nisl');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (23, 19, 87, 42, 47, 'ut nunc vestibulum ante ipsum primis in faucibus orci luctus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (24, 8, 91, 80, 47, 'id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (25, 16, 96, 3, 14, 'donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (26, 55, 30, 67, 19, 'vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (27, 26, 8, 59, 42, 'placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (28, 84, 96, 14, 85, 'dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (29, 91, 13, 45, 100, 'nam congue risus semper porta volutpat quam pede lobortis ligula');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (30, 92, 84, 85, 5, 'convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (31, 95, 45, 11, 96, 'sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (32, 46, 41, 69, 92, 'neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (33, 6, 22, 20, 36, 'est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (34, 15, 36, 3, 20, 'amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (35, 88, 15, 16, 58, 'urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (36, 41, 11, 14, 71, 'pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (37, 60, 57, 45, 58, 'quam nec dui luctus rutrum nulla tellus in sagittis dui');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (38, 52, 30, 47, 41, 'integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (39, 26, 65, 63, 48, 'erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (40, 76, 65, 20, 97, 'gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (41, 6, 12, 92, 16, 'massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (42, 16, 84, 60, 51, 'orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (43, 54, 3, 46, 48, 'congue risus semper porta volutpat quam pede lobortis ligula sit');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (44, 28, 87, 39, 54, 'augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (45, 74, 48, 28, 77, 'porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (46, 89, 5, 21, 53, 'cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (47, 11, 22, 80, 99, 'ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (48, 8, 42, 31, 70, 'justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (49, 52, 8, 52, 80, 'vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (50, 97, 67, 13, 98, 'nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (51, 49, 77, 14, 9, 'donec quis orci eget orci vehicula condimentum curabitur in libero ut');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (52, 79, 92, 37, 2, 'malesuada in imperdiet et commodo vulputate justo in blandit ultrices');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (53, 6, 95, 91, 25, 'odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (54, 70, 1, 81, 11, 'justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (55, 61, 15, 94, 48, 'amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (56, 32, 60, 38, 36, 'ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (57, 10, 90, 6, 81, 'pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (58, 39, 73, 54, 42, 'donec semper sapien a libero nam dui proin leo odio porttitor id consequat');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (59, 38, 13, 48, 39, 'semper porta volutpat quam pede lobortis ligula sit amet eleifend pede');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (60, 50, 72, 56, 97, 'metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (61, 42, 57, 17, 27, 'aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (62, 85, 19, 21, 62, 'aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (63, 10, 55, 35, 58, 'eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (64, 1, 60, 33, 48, 'rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (65, 74, 44, 17, 28, 'nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (66, 29, 44, 64, 75, 'quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (67, 87, 54, 10, 38, 'felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (68, 86, 62, 58, 95, 'donec quis orci eget orci vehicula condimentum curabitur in libero ut');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (69, 84, 12, 61, 18, 'faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (70, 20, 89, 71, 30, 'quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (71, 27, 38, 18, 48, 'quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (72, 98, 46, 43, 52, 'egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (73, 9, 45, 10, 81, 'aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (74, 61, 83, 42, 74, 'at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (75, 11, 10, 98, 78, 'vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (76, 22, 66, 86, 17, 'enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (77, 22, 78, 7, 58, 'id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (78, 100, 91, 56, 98, 'mi sit amet lobortis sapien sapien non mi integer ac');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (79, 12, 2, 47, 41, 'ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (80, 15, 46, 93, 28, 'id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (81, 7, 75, 54, 91, 'porttitor pede justo eu massa donec dapibus duis at velit eu');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (82, 81, 53, 21, 100, 'viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (83, 12, 48, 74, 10, 'cursus id turpis integer aliquet massa id lobortis convallis tortor');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (84, 81, 78, 30, 96, 'odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (85, 14, 93, 46, 86, 'id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (86, 58, 49, 49, 76, 'in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (87, 34, 96, 38, 19, 'faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (88, 75, 92, 66, 3, 'lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (89, 41, 66, 50, 58, 'odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (90, 2, 40, 46, 94, 'consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (91, 47, 29, 11, 98, 'a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (92, 58, 51, 24, 80, 'vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (93, 71, 59, 39, 69, 'vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (94, 67, 19, 29, 63, 'ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (95, 73, 44, 22, 83, 'risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (96, 90, 92, 49, 71, 'nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (97, 66, 66, 26, 65, 'ipsum primis in faucibus orci luctus et ultrices posuere cubilia');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (98, 43, 87, 10, 58, 'posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (99, 29, 77, 16, 69, 'ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis');
+insert into messages (id, from_guest_id, to_hotel_id, from_hotel_id, to_guest_id, body) values (100, 59, 88, 59, 56, 'a pede posuere nonummy integer non velit donec diam neque vestibulum');
+  
+  -- 5
+  
+  DROP TABLE IF EXISTS `rooms`;
+  CREATE TABLE `rooms` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) DEFAULT NULL,
+  `hotel_id` bigint unsigned NOT NULL,
+  `description` TEXT NULL,
+  `price` DECIMAL (11,2),
+  `vacant` char(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `hotel_id` (`hotel_id`),
+  CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`));
+  
+insert into rooms (id, type, hotel_id, description, price, vacant) values (1, 'Fixflex', 93, 'donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus', '159', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (2, 'Temp', 51, 'nulla tellus in sagittis dui vel nisl duis ac nibh fusce', '51', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (3, 'Zoolab', 34, 'integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl', '129', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (4, 'Overhold', 21, 'etiam faucibus cursus urna ut tellus nulla ut erat id', '217', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (5, 'Keylex', 97, 'aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque', '54', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (6, 'Kanlam', 91, 'interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', '248', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (7, 'Alpha', 7, 'vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut', '196', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (8, 'Prodder', 87, 'iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean', '208', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (9, 'Treeflex', 95, 'odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac', '134.17', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (10, 'Opela', 21, 'sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est', '142.93', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (11, 'Rank', 33, 'quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin', '206.92', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (12, 'Treeflex', 76, 'dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id', '76.11', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (13, 'Daltfresh', 59, 'sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed', '40.49', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (14, 'Bytecard', 30, 'nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem', '132.82', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (15, 'It', 15, 'convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus', '231.41', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (16, 'Viva', 94, 'volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis', '58.37', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (17, 'Transcof', 1, 'id ligula suspendisse ornare consequat lectus in est risus auctor sed', '170.28', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (18, 'Treeflex', 22, 'habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent', '158.31', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (19, 'Domainer', 20, 'in congue etiam justo etiam pretium iaculis justo in hac habitasse platea', '231.96', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (20, 'Tampflex', 82, 'nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a', '150.57', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (21, 'Alphazap', 81, 'et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer', '154.43', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (22, 'Flexidy', 22, 'sem sed sagittis nam congue risus semper porta volutpat quam pede', '177.45', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (23, 'Trippledex', 88, 'aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus', '88.42', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (24, 'Ventosanzap', 64, 'ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non', '103.37', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (25, 'Redhold', 20, 'nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus', '72.36', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (26, 'Y-Solowarm', 11, 'imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere', '175.11', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (27, 'Konklab', 23, 'et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum', '240.47', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (28, 'Transcof', 67, 'diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non', '122.90', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (29, 'Redhold', 6, 'dolor sit amet consectetuer adipiscing elit proin risus praesent lectus', '209.61', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (30, 'Daltfresh', 90, 'consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus', '79.33', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (31, 'Viva', 41, 'nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis', '47.21', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (32, 'Greenlam', 100, 'vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at', '168.99', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (33, 'Kanlam', 68, 'ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac', '58.59', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (34, 'Lotstring', 50, 'eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum', '147.21', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (35, 'Ventosanzap', 72, 'phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit', '49.68', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (36, 'Voyatouch', 26, 'enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus', '220.20', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (37, 'Voltsillam', 87, 'justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare', '154.48', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (38, 'Zathin', 96, 'turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel', '104.53', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (39, 'Treeflex', 1, 'purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus', '50.54', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (40, 'Stronghold', 50, 'erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla', '176.49', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (41, 'Zaam-Dox', 37, 'imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet', '165.75', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (42, 'Tin', 19, 'amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor', '79.30', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (43, 'Mat Lam Tam', 56, 'mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam', '128.31', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (44, 'Sonair', 24, 'cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum', '72.62', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (45, 'Fixflex', 53, 'pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in', '80.19', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (46, 'Y-find', 22, 'justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit', '221.89', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (47, 'Prodder', 78, 'est congue elementum in hac habitasse platea dictumst morbi vestibulum velit', '76.81', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (48, 'Flexidy', 39, 'sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam', '217.81', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (49, 'Asoka', 70, 'erat volutpat in congue etiam justo etiam pretium iaculis justo in', '109.26', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (50, 'Flexidy', 98, 'ultricies eu nibh quisque id justo sit amet sapien dignissim', '126.82', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (51, 'Wrapsafe', 49, 'rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio', '171.98', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (52, 'Hatity', 43, 'ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer', '103.41', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (53, 'Solarbreeze', 96, 'venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem', '199.75', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (54, 'Fix San', 19, 'ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis', '193.16', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (55, 'Zoolab', 14, 'morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat', '175.13', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (56, 'Latlux', 5, 'vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante', '179.56', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (57, 'Wrapsafe', 9, 'eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet', '141.89', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (58, 'Stim', 46, 'sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus', '58.05', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (59, 'Viva', 47, 'pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac', '237.10', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (60, 'Toughjoyfax', 62, 'interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam nam tristique', '159.43', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (61, 'Konklab', 11, 'mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean', '50.37', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (62, 'It', 8, 'at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero', '212.85', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (63, 'Wrapsafe', 60, 'lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo', '110.72', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (64, 'Greenlam', 76, 'curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus', '151.59', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (65, 'Span', 1, 'urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo', '184.71', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (66, 'Flexidy', 51, 'augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat', '136.37', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (67, 'Tampflex', 28, 'duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus', '195.79', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (68, 'Namfix', 19, 'id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate', '55.51', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (69, 'Cookley', 52, 'pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus', '113.77', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (70, 'Viva', 86, 'nisl nunc nisl duis bibendum felis sed interdum venenatis turpis', '135.45', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (71, 'Bigtax', 13, 'non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel', '71.78', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (72, 'Zoolab', 29, 'viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis', '190.93', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (73, 'Zontrax', 47, 'tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus', '232.73', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (74, 'Zathin', 20, 'mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh', '248.64', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (75, 'Bamity', 50, 'sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus', '129.51', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (76, 'Kanlam', 70, 'luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis', '234.81', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (77, 'Subin', 62, 'venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus', '151.04', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (78, 'Trippledex', 67, 'orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet', '192.18', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (79, 'Span', 3, 'consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce', '87.65', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (80, 'Andalax', 92, 'at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo', '80.41', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (81, 'Voltsillam', 86, 'pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim', '179.76', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (82, 'Lotstring', 95, 'sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede', '159.77', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (83, 'Sonair', 6, 'sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend', '73.95', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (84, 'Voltsillam', 20, 'velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus', '141.77', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (85, 'Bytecard', 58, 'tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum', '146.79', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (86, 'Kanlam', 97, 'purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id', '51.52', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (87, 'Vagram', 41, 'penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus', '73.85', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (88, 'Span', 10, 'sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna', '178.05', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (89, 'Gembucket', 39, 'ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero', '178.53', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (90, 'Sonair', 38, 'vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae', '171.09', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (91, 'Stim', 63, 'risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede', '151.80', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (92, 'Overhold', 6, 'cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum', '92.43', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (93, 'Tampflex', 77, 'ut at dolor quis odio consequat varius integer ac leo', '118.09', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (94, 'Bytecard', 25, 'proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum', '242.31', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (95, 'Bitchip', 68, 'morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla', '213.63', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (96, 'Bytecard', 95, 'sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam nam tristique tortor eu', '44.47', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (97, 'Cardify', 35, 'purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis', '56.85', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (98, 'Redhold', 5, 'erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla', '122.14', true);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (99, 'Zamit', 98, 'a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio', '183.55', false);
+insert into rooms (id, type, hotel_id, description, price, vacant) values (100, 'Treeflex', 48, 'odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla', '174.12', false);
+
+  -- 6
+  
+  DROP TABLE IF EXISTS `photos`;
+  CREATE TABLE `photos` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `hotel_id` bigint unsigned NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `hotel_id` (`hotel_id`),
+  CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`));
+  
+insert into photos (id, hotel_id, description) values (1, 15, 'a libero');
+insert into photos (id, hotel_id, description) values (2, 14, 'ridiculus mus etiam vel');
+insert into photos (id, hotel_id, description) values (3, 25, 'sapien placerat ante');
+insert into photos (id, hotel_id, description) values (4, 34, 'tellus');
+insert into photos (id, hotel_id, description) values (5, 92, 'lobortis sapien sapien non');
+insert into photos (id, hotel_id, description) values (6, 30, 'sit amet nulla');
+insert into photos (id, hotel_id, description) values (7, 24, 'lobortis');
+insert into photos (id, hotel_id, description) values (8, 5, 'adipiscing lorem vitae mattis');
+insert into photos (id, hotel_id, description) values (9, 12, 'sed justo');
+insert into photos (id, hotel_id, description) values (10, 49, 'orci vehicula condimentum curabitur');
+insert into photos (id, hotel_id, description) values (11, 79, 'lobortis est phasellus');
+insert into photos (id, hotel_id, description) values (12, 81, 'elit sodales');
+insert into photos (id, hotel_id, description) values (13, 70, 'sem');
+insert into photos (id, hotel_id, description) values (14, 37, 'elementum ligula vehicula');
+insert into photos (id, hotel_id, description) values (15, 43, 'auctor gravida sem');
+insert into photos (id, hotel_id, description) values (16, 13, 'purus sit');
+insert into photos (id, hotel_id, description) values (17, 80, 'consequat morbi');
+insert into photos (id, hotel_id, description) values (18, 78, 'quam pede lobortis');
+insert into photos (id, hotel_id, description) values (19, 43, 'nullam sit amet');
+insert into photos (id, hotel_id, description) values (20, 5, 'nulla dapibus dolor vel');
+insert into photos (id, hotel_id, description) values (21, 40, 'bibendum morbi');
+insert into photos (id, hotel_id, description) values (22, 10, 'in quis justo');
+insert into photos (id, hotel_id, description) values (23, 54, 'faucibus orci luctus');
+insert into photos (id, hotel_id, description) values (24, 41, 'in ante vestibulum ante');
+insert into photos (id, hotel_id, description) values (25, 25, 'dui vel nisl duis');
+insert into photos (id, hotel_id, description) values (26, 45, 'nulla');
+insert into photos (id, hotel_id, description) values (27, 89, 'neque aenean auctor gravida');
+insert into photos (id, hotel_id, description) values (28, 80, 'potenti nullam');
+insert into photos (id, hotel_id, description) values (29, 59, 'nec nisi');
+insert into photos (id, hotel_id, description) values (30, 57, 'eu felis');
+insert into photos (id, hotel_id, description) values (31, 13, 'justo sollicitudin');
+insert into photos (id, hotel_id, description) values (32, 64, 'convallis morbi odio odio');
+insert into photos (id, hotel_id, description) values (33, 62, 'dapibus');
+insert into photos (id, hotel_id, description) values (34, 22, 'volutpat in congue');
+insert into photos (id, hotel_id, description) values (35, 12, 'mattis odio');
+insert into photos (id, hotel_id, description) values (36, 40, 'dis');
+insert into photos (id, hotel_id, description) values (37, 33, 'in magna bibendum');
+insert into photos (id, hotel_id, description) values (38, 29, 'iaculis congue vivamus');
+insert into photos (id, hotel_id, description) values (39, 81, 'auctor gravida sem praesent');
+insert into photos (id, hotel_id, description) values (40, 21, 'massa donec dapibus');
+insert into photos (id, hotel_id, description) values (41, 66, 'faucibus orci luctus');
+insert into photos (id, hotel_id, description) values (42, 1, 'nulla');
+insert into photos (id, hotel_id, description) values (43, 8, 'in');
+insert into photos (id, hotel_id, description) values (44, 95, 'posuere nonummy integer non');
+insert into photos (id, hotel_id, description) values (45, 19, 'turpis donec posuere');
+insert into photos (id, hotel_id, description) values (46, 13, 'vestibulum rutrum');
+insert into photos (id, hotel_id, description) values (47, 29, 'enim leo');
+insert into photos (id, hotel_id, description) values (48, 5, 'luctus nec molestie');
+insert into photos (id, hotel_id, description) values (49, 15, 'ac enim');
+insert into photos (id, hotel_id, description) values (50, 90, 'pede venenatis non sodales');
+  
+  -- 7
+  
+  DROP TABLE IF EXISTS `stars`;
+  CREATE TABLE `stars` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `hotel_id` bigint unsigned NOT NULL,
+  `star` bigint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `hotel_id` (`hotel_id`),
+  CONSTRAINT `stars_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`));
+  
+insert into stars (id, hotel_id, star) values (1, 61, 2);
+insert into stars (id, hotel_id, star) values (2, 69, 4);
+insert into stars (id, hotel_id, star) values (3, 12, 1);
+insert into stars (id, hotel_id, star) values (4, 88, 2);
+insert into stars (id, hotel_id, star) values (5, 46, 1);
+insert into stars (id, hotel_id, star) values (6, 2, 3);
+insert into stars (id, hotel_id, star) values (7, 47, 3);
+insert into stars (id, hotel_id, star) values (8, 34, 3);
+insert into stars (id, hotel_id, star) values (9, 71, 4);
+insert into stars (id, hotel_id, star) values (10, 91, 4);
+insert into stars (id, hotel_id, star) values (11, 55, 3);
+insert into stars (id, hotel_id, star) values (12, 51, 5);
+insert into stars (id, hotel_id, star) values (13, 99, 1);
+insert into stars (id, hotel_id, star) values (14, 2, 3);
+insert into stars (id, hotel_id, star) values (15, 35, 3);
+insert into stars (id, hotel_id, star) values (16, 81, 4);
+insert into stars (id, hotel_id, star) values (17, 65, 2);
+insert into stars (id, hotel_id, star) values (18, 39, 4);
+insert into stars (id, hotel_id, star) values (19, 99, 3);
+insert into stars (id, hotel_id, star) values (20, 73, 1);
+insert into stars (id, hotel_id, star) values (21, 46, 1);
+insert into stars (id, hotel_id, star) values (22, 49, 1);
+insert into stars (id, hotel_id, star) values (23, 8, 3);
+insert into stars (id, hotel_id, star) values (24, 63, 2);
+insert into stars (id, hotel_id, star) values (25, 6, 4);
+insert into stars (id, hotel_id, star) values (26, 37, 1);
+insert into stars (id, hotel_id, star) values (27, 33, 3);
+insert into stars (id, hotel_id, star) values (28, 9, 3);
+insert into stars (id, hotel_id, star) values (29, 56, 1);
+insert into stars (id, hotel_id, star) values (30, 65, 2);
+insert into stars (id, hotel_id, star) values (31, 55, 2);
+insert into stars (id, hotel_id, star) values (32, 87, 5);
+insert into stars (id, hotel_id, star) values (33, 2, 5);
+insert into stars (id, hotel_id, star) values (34, 89, 3);
+insert into stars (id, hotel_id, star) values (35, 13, 2);
+insert into stars (id, hotel_id, star) values (36, 13, 1);
+insert into stars (id, hotel_id, star) values (37, 47, 3);
+insert into stars (id, hotel_id, star) values (38, 78, 2);
+insert into stars (id, hotel_id, star) values (39, 83, 2);
+insert into stars (id, hotel_id, star) values (40, 44, 4);
+insert into stars (id, hotel_id, star) values (41, 6, 2);
+insert into stars (id, hotel_id, star) values (42, 36, 1);
+insert into stars (id, hotel_id, star) values (43, 95, 1);
+insert into stars (id, hotel_id, star) values (44, 81, 1);
+insert into stars (id, hotel_id, star) values (45, 40, 2);
+insert into stars (id, hotel_id, star) values (46, 58, 1);
+insert into stars (id, hotel_id, star) values (47, 47, 4);
+insert into stars (id, hotel_id, star) values (48, 93, 1);
+insert into stars (id, hotel_id, star) values (49, 89, 5);
+insert into stars (id, hotel_id, star) values (50, 51, 3);
+insert into stars (id, hotel_id, star) values (51, 1, 4);
+insert into stars (id, hotel_id, star) values (52, 17, 1);
+insert into stars (id, hotel_id, star) values (53, 4, 4);
+insert into stars (id, hotel_id, star) values (54, 39, 3);
+insert into stars (id, hotel_id, star) values (55, 32, 2);
+insert into stars (id, hotel_id, star) values (56, 24, 5);
+insert into stars (id, hotel_id, star) values (57, 79, 3);
+insert into stars (id, hotel_id, star) values (58, 85, 3);
+insert into stars (id, hotel_id, star) values (59, 24, 1);
+insert into stars (id, hotel_id, star) values (60, 43, 3);
+insert into stars (id, hotel_id, star) values (61, 13, 3);
+insert into stars (id, hotel_id, star) values (62, 80, 3);
+insert into stars (id, hotel_id, star) values (63, 29, 4);
+insert into stars (id, hotel_id, star) values (64, 14, 1);
+insert into stars (id, hotel_id, star) values (65, 32, 3);
+insert into stars (id, hotel_id, star) values (66, 6, 3);
+insert into stars (id, hotel_id, star) values (67, 7, 3);
+insert into stars (id, hotel_id, star) values (68, 3, 1);
+insert into stars (id, hotel_id, star) values (69, 13, 3);
+insert into stars (id, hotel_id, star) values (70, 59, 4);
+insert into stars (id, hotel_id, star) values (71, 28, 4);
+insert into stars (id, hotel_id, star) values (72, 26, 5);
+insert into stars (id, hotel_id, star) values (73, 96, 3);
+insert into stars (id, hotel_id, star) values (74, 100, 1);
+insert into stars (id, hotel_id, star) values (75, 1, 1);
+insert into stars (id, hotel_id, star) values (76, 96, 3);
+insert into stars (id, hotel_id, star) values (77, 90, 5);
+insert into stars (id, hotel_id, star) values (78, 56, 3);
+insert into stars (id, hotel_id, star) values (79, 78, 3);
+insert into stars (id, hotel_id, star) values (80, 70, 4);
+insert into stars (id, hotel_id, star) values (81, 50, 2);
+insert into stars (id, hotel_id, star) values (82, 15, 1);
+insert into stars (id, hotel_id, star) values (83, 98, 5);
+insert into stars (id, hotel_id, star) values (84, 29, 4);
+insert into stars (id, hotel_id, star) values (85, 59, 1);
+insert into stars (id, hotel_id, star) values (86, 59, 2);
+insert into stars (id, hotel_id, star) values (87, 69, 2);
+insert into stars (id, hotel_id, star) values (88, 92, 5);
+insert into stars (id, hotel_id, star) values (89, 19, 4);
+insert into stars (id, hotel_id, star) values (90, 66, 2);
+insert into stars (id, hotel_id, star) values (91, 51, 4);
+insert into stars (id, hotel_id, star) values (92, 89, 5);
+insert into stars (id, hotel_id, star) values (93, 6, 3);
+insert into stars (id, hotel_id, star) values (94, 76, 2);
+insert into stars (id, hotel_id, star) values (95, 65, 2);
+insert into stars (id, hotel_id, star) values (96, 37, 5);
+insert into stars (id, hotel_id, star) values (97, 11, 2);
+insert into stars (id, hotel_id, star) values (98, 65, 2);
+insert into stars (id, hotel_id, star) values (99, 40, 1);
+insert into stars (id, hotel_id, star) values (100, 92, 2);
+  
+  -- 8
+  
+  DROP TABLE IF EXISTS `discounts`;
+  CREATE TABLE `discounts` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `room_id` bigint unsigned NOT NULL,
+  `discount` DECIMAL (11,2),
+  `started_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `finished_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `room_id`(`room_id`),
+  CONSTRAINT `discounts_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`));
+  
+insert into discounts (id, room_id, discount, started_at, finished_at) values (1, 27, 40, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (2, 12, 28, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (3, 62, 40, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (4, 15, 29, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (5, 1, 23, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (6, 9, 34, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (7, 82, 11, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (8, 97, 21, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (9, 23, 27, '2020-09-01', '2020-10-31');
+insert into discounts (id, room_id, discount, started_at, finished_at) values (10, 88, 36, '2020-09-01', '2020-10-31');
+  
+  -- 9
+  
+ DROP TABLE IF EXISTS `likes`;
+ CREATE TABLE `likes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `hotel_id` bigint unsigned NOT NULL,
+  `guest_id` bigint unsigned NOT NULL,
+  `like` bigint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `hotel_id` (`hotel_id`),
+  KEY `guest_id` (`guest_id`),
+  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`),
+  CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`id`));
+  
+insert into likes (id, hotel_id, guest_id, `like`) values (1, 72, 63, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (2, 13, 34, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (3, 22, 29, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (4, 61, 78, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (5, 77, 96, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (6, 81, 85, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (7, 34, 59, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (8, 40, 48, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (9, 21, 32, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (10, 18, 77, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (11, 87, 78, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (12, 9, 56, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (13, 2, 37, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (14, 38, 87, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (15, 20, 59, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (16, 3, 38, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (17, 50, 48, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (18, 50, 41, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (19, 68, 11, 1);
+insert into likes (id, hotel_id, guest_id, `like`) values (20, 62, 39, 1);
+  
+  -- 10
+  
+  DROP TABLE IF EXISTS `booking`;
+  CREATE TABLE `booking` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `room_id` bigint unsigned NOT NULL,
+  `guest_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `room_id` (`room_id`),
+  KEY `guest_id` (`guest_id`),
+  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`),
+  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`id`));
+  
+insert into booking (id, room_id, guest_id) values (1, 9, 45);
+insert into booking (id, room_id, guest_id) values (2, 33, 75);
+insert into booking (id, room_id, guest_id) values (3, 87, 73);
+insert into booking (id, room_id, guest_id) values (4, 53, 5);
+insert into booking (id, room_id, guest_id) values (5, 98, 17);
+insert into booking (id, room_id, guest_id) values (6, 86, 97);
+insert into booking (id, room_id, guest_id) values (7, 11, 41);
+insert into booking (id, room_id, guest_id) values (8, 90, 64);
+insert into booking (id, room_id, guest_id) values (9, 81, 43);
+insert into booking (id, room_id, guest_id) values (10, 93, 84);
+insert into booking (id, room_id, guest_id) values (11, 46, 53);
+insert into booking (id, room_id, guest_id) values (12, 67, 2);
+insert into booking (id, room_id, guest_id) values (13, 24, 22);
+insert into booking (id, room_id, guest_id) values (14, 25, 48);
+insert into booking (id, room_id, guest_id) values (15, 4, 70);
+insert into booking (id, room_id, guest_id) values (16, 50, 87);
+insert into booking (id, room_id, guest_id) values (17, 94, 75);
+insert into booking (id, room_id, guest_id) values (18, 16, 10);
+insert into booking (id, room_id, guest_id) values (19, 18, 75);
+insert into booking (id, room_id, guest_id) values (20, 66, 21);
+insert into booking (id, room_id, guest_id) values (21, 98, 3);
+insert into booking (id, room_id, guest_id) values (22, 74, 9);
+insert into booking (id, room_id, guest_id) values (23, 61, 46);
+insert into booking (id, room_id, guest_id) values (24, 99, 31);
+insert into booking (id, room_id, guest_id) values (25, 41, 2);
+insert into booking (id, room_id, guest_id) values (26, 45, 59);
+insert into booking (id, room_id, guest_id) values (27, 3, 50);
+insert into booking (id, room_id, guest_id) values (28, 75, 60);
+insert into booking (id, room_id, guest_id) values (29, 89, 13);
+insert into booking (id, room_id, guest_id) values (30, 36, 60);
+insert into booking (id, room_id, guest_id) values (31, 10, 54);
+insert into booking (id, room_id, guest_id) values (32, 33, 28);
+insert into booking (id, room_id, guest_id) values (33, 86, 39);
+insert into booking (id, room_id, guest_id) values (34, 80, 15);
+insert into booking (id, room_id, guest_id) values (35, 18, 42);
+insert into booking (id, room_id, guest_id) values (36, 63, 58);
+insert into booking (id, room_id, guest_id) values (37, 9, 87);
+insert into booking (id, room_id, guest_id) values (38, 79, 5);
+insert into booking (id, room_id, guest_id) values (39, 24, 4);
+insert into booking (id, room_id, guest_id) values (40, 21, 76);
+insert into booking (id, room_id, guest_id) values (41, 68, 12);
+insert into booking (id, room_id, guest_id) values (42, 35, 25);
+insert into booking (id, room_id, guest_id) values (43, 25, 90);
+insert into booking (id, room_id, guest_id) values (44, 29, 70);
+insert into booking (id, room_id, guest_id) values (45, 19, 49);
+insert into booking (id, room_id, guest_id) values (46, 93, 91);
+insert into booking (id, room_id, guest_id) values (47, 24, 17);
+insert into booking (id, room_id, guest_id) values (48, 98, 35);
+insert into booking (id, room_id, guest_id) values (49, 66, 72);
+insert into booking (id, room_id, guest_id) values (50, 7, 41);
+
+-- Скрипты характерных выборок:
+
+-- Вывести количество отелей в каждой стране:
+select country, count(*) from booking_com.hotels group by country;
+-- Вывести список отелей и их уровень согласно рейтингу:
+use booking_com;
+select h.hotel_name as hotel, s.star as star
+from hotels as h
+join stars as s on h.id = s.hotel_id;
+-- Вывести список забронированных номеров и гостей, осуществивших это бронирование
+select
+room_id,
+(select surname from guests where guest_id = id) as guest_name 
+from booking;
+
+-- Представления
+
+-- Вывести список отелей и соответствующие им типы номеров:
+create view room_info
+as select hotel_name, `type`
+from rooms, hotels
+where hotel_id = hotels.id;
+
+select * from room_info;
+-- Вывести сообщения, отправленные гостями и имена этих гостей:
+create view guests_messages
+as select body, `name`, surname
+from messages, guests
+where from_guest_id = guests.id;
+
+select * from guests_messages;
+
+-- Хранимые процедуры / триггеры
+
+-- Процедура, показывающая список отелей в стране
+DELIMITER //
+create procedure hotel_country (country_arg varchar(45))
+begin 
+	select hotel_name, country
+    from hotels
+    where country = country_arg;
+end//
+DELIMITER ;
+
+call hotel_country ('Indonesia');
+-- Триггер, рассчитывающий скидку 30%
+DELIMITER //
+create trigger before_discount_30
+before update on rooms
+for each row
+begin
+	set new.price = new.price * 0.7;
+end //
+DELIMITER ;
+
+
